@@ -22,12 +22,36 @@ public final class WebServiceService {
   private let uri = "http://www.infoclimat.fr/public-api/gfs/json?"
   private let auth = "&_auth=ARsDFAR6ACJXelNkAXdSewRsADULfVVyAX0KaVw5UC0HbARlUTFcOgBuUi8GKQs9Ay5UNwkyAzMAa1IqD30AYQFrA28EbwBnVzhTNgEuUnkEKgBhCytVcgFlCmVcL1AyB20EYlEsXDwAb1IuBjQLPgMyVCsJKQM6AGZSMQ9qAGIBZwNvBGYAa1c8Uy4BLlJjBGQAZAszVW0BZgo7XDNQZQdnBGdRZFw%2FAG5SLgYyCzsDMlQ0CTEDOABjUjQPfQB8ARsDFAR6ACJXelNkAXdSewRiAD4LYA%3D%3D&_c=f6c617cc089e19e12abda28b724dca82"
 
+  private var urlForecast = ""
+
   private let marginMessageBox: CGFloat = 20
 
   public func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void) {
 
-    let urlString = "\(uri)_ll=48.85341,2.3488\(auth)"
-    self.getDataWith(urlString: urlString, completion: { (result) in
+    PermissionService.sharedInstance.requestLocationPermission({ (permissionStatus) in
+
+      switch permissionStatus {
+      case .granted :
+        PermissionService.sharedInstance.locationUpdatedCompletionHandler = { (permissionStatus, coordinates) in
+          self.urlForecast = "\(self.uri)_ll=\(coordinates.x),\(coordinates.y)\(self.auth)"
+          self.launchForecastRequest(completionHandler: { (result) in
+            completionHandler(result)
+          })
+        }
+        PermissionService.sharedInstance.startLocalisation()
+
+      default :
+        self.launchForecastRequest(completionHandler: { (result) in
+          completionHandler(result)
+        })
+      }
+
+    })
+
+  }
+
+  private func launchForecastRequest(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void) {
+    self.getDataWith(urlString: urlForecast, completion: { (result) in
       switch result {
       case .success(let data):
         ParserService.parseForecastsFromJSON(data, completionHandler: { result in
@@ -46,7 +70,7 @@ public final class WebServiceService {
 
       case .error(let message):
         ErrorService.sharedInstance.showErrorMessage(message: message)
-        return completionHandler(.error(message))
+        completionHandler(.error(message))
       }
     })
   }
@@ -83,6 +107,7 @@ public final class WebServiceService {
   }
   private init() {
     ReachabilityService.sharedInstance.delegates.add(self)
+    urlForecast = "\(uri)_ll=48.85341,2.3488\(auth)"
   }
 
   deinit {

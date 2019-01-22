@@ -1,5 +1,5 @@
 //
-//  Globals.swift
+//  UITestKey.swift
 //  WeatherSwift
 //
 //  Created by Romain Mullot on 22/01/2019.

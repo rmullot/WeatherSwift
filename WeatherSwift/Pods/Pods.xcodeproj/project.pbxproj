@@ -1264,40 +1264,6 @@
 			};
 			name = Release;
 		};
-		3F8E6F1D5AA288CA86231A5B5E320320 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27C01A54670A6B3BEA3CB244D9228580 /* Pods-WeatherSwift.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwift/Pods-WeatherSwift-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwift/Pods-WeatherSwift.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		4523AD7643ED91A440EAEA20025EC111 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1406,6 +1372,106 @@
 			};
 			name = Release;
 		};
+		56D0498C3DB6E6254CAE99AE513019B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A6773D08660ABC54F9EEC38F99F2A0B /* Pods-WeatherSwiftUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwiftUITests/Pods-WeatherSwiftUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwiftUITests/Pods-WeatherSwiftUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		602E0D7CB7DAAE37D8F2790761CA8147 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27C01A54670A6B3BEA3CB244D9228580 /* Pods-WeatherSwift.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwift/Pods-WeatherSwift-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwift/Pods-WeatherSwift.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		635E952DBA9CC9E262C3A38E5628E90F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2354AC2B48C6FDC6710BB34030FDF79C /* SwiftMessages.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftMessages/SwiftMessages-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftMessages/SwiftMessages-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SwiftMessages/SwiftMessages.modulemap";
+				PRODUCT_MODULE_NAME = SwiftMessages;
+				PRODUCT_NAME = SwiftMessages;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		687E77841158A0E90A59E4C98A75688D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2354AC2B48C6FDC6710BB34030FDF79C /* SwiftMessages.xcconfig */;
@@ -1437,40 +1503,6 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
-		};
-		6AACF4CAEE0D4BC182D5A6B5D116220D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A6773D08660ABC54F9EEC38F99F2A0B /* Pods-WeatherSwiftUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwiftUITests/Pods-WeatherSwiftUITests-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwiftUITests/Pods-WeatherSwiftUITests.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		73BCA96BDDC4E68DB9DE86A2AD1152BF /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1549,10 +1581,11 @@
 			};
 			name = Debug;
 		};
-		ADB3FF2BB4F8FB0AC2291D8B388453F4 /* Debug */ = {
+		ABBFE9E9EF181313C82FDDF1811DFE0F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2354AC2B48C6FDC6710BB34030FDF79C /* SwiftMessages.xcconfig */;
+			baseConfigurationReference = 2863B7AE7AAFA4CC01E407962A916C4B /* ReachabilitySwift.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1562,14 +1595,14 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftMessages/SwiftMessages-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftMessages/SwiftMessages-Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftMessages/SwiftMessages.modulemap";
-				PRODUCT_MODULE_NAME = SwiftMessages;
-				PRODUCT_NAME = SwiftMessages;
+				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
+				PRODUCT_MODULE_NAME = Reachability;
+				PRODUCT_NAME = Reachability;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
@@ -1615,11 +1648,11 @@
 			};
 			name = Release;
 		};
-		C38ACABE3088BB64DE25866D5173262C /* Debug */ = {
+		C66D77A0863F774130A2960DCC90DE7F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D894EB298889C2D0AB4C0FDAD2A9AE3A /* Pods-WeatherCore.debug.xcconfig */;
+			baseConfigurationReference = 499FB15DD12320537880E72B3750976F /* Pods-WeatherSwiftTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1630,12 +1663,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-WeatherCore/Pods-WeatherCore-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwiftTests/Pods-WeatherSwiftTests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-WeatherCore/Pods-WeatherCore.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwiftTests/Pods-WeatherSwiftTests.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1684,11 +1717,11 @@
 			};
 			name = Release;
 		};
-		E6DCE0ED9C66997CA7F9320E06CD9DD1 /* Debug */ = {
+		D4E3D73CA9A02D5EE2FDCB76119A8E1F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 499FB15DD12320537880E72B3750976F /* Pods-WeatherSwiftTests.debug.xcconfig */;
+			baseConfigurationReference = D894EB298889C2D0AB4C0FDAD2A9AE3A /* Pods-WeatherCore.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1699,12 +1732,12 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-WeatherSwiftTests/Pods-WeatherSwiftTests-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-WeatherCore/Pods-WeatherCore-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-WeatherSwiftTests/Pods-WeatherSwiftTests.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-WeatherCore/Pods-WeatherCore.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1718,44 +1751,13 @@
 			};
 			name = Debug;
 		};
-		FA97F2E46B42B86C89835866C5AECD5A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2863B7AE7AAFA4CC01E407962A916C4B /* ReachabilitySwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/ReachabilitySwift/ReachabilitySwift.modulemap";
-				PRODUCT_MODULE_NAME = Reachability;
-				PRODUCT_NAME = Reachability;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		083D32D3FB9A6F2CE650A43EEB230B95 /* Build configuration list for PBXNativeTarget "ReachabilitySwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				FA97F2E46B42B86C89835866C5AECD5A /* Debug */,
+				ABBFE9E9EF181313C82FDDF1811DFE0F /* Debug */,
 				73BCA96BDDC4E68DB9DE86A2AD1152BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1773,7 +1775,7 @@
 		237C5CCEB8267871A484E2E19EED77AA /* Build configuration list for PBXNativeTarget "Pods-WeatherCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C38ACABE3088BB64DE25866D5173262C /* Debug */,
+				D4E3D73CA9A02D5EE2FDCB76119A8E1F /* Debug */,
 				36335D710EAE4C548B82D142111BEDA1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1782,7 +1784,7 @@
 		2815FB86DABB00057BB59584175850AF /* Build configuration list for PBXNativeTarget "Pods-WeatherSwiftUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6AACF4CAEE0D4BC182D5A6B5D116220D /* Debug */,
+				56D0498C3DB6E6254CAE99AE513019B7 /* Debug */,
 				46959C0E8BF14ABA1A8AAC4579DFDB94 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1809,7 +1811,7 @@
 		B978566A2D47AA03692CCADFEA3A74CB /* Build configuration list for PBXNativeTarget "SwiftMessages" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				ADB3FF2BB4F8FB0AC2291D8B388453F4 /* Debug */,
+				635E952DBA9CC9E262C3A38E5628E90F /* Debug */,
 				687E77841158A0E90A59E4C98A75688D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1827,7 +1829,7 @@
 		E889DC51135BDF3543EA989238B8769D /* Build configuration list for PBXNativeTarget "Pods-WeatherSwiftTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E6DCE0ED9C66997CA7F9320E06CD9DD1 /* Debug */,
+				C66D77A0863F774130A2960DCC90DE7F /* Debug */,
 				BEC2FB67C9B08E12796EC52FF12D49EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1836,7 +1838,7 @@
 		EE80FFB3BB28F1BB896A8D1279A81AB0 /* Build configuration list for PBXNativeTarget "Pods-WeatherSwift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3F8E6F1D5AA288CA86231A5B5E320320 /* Debug */,
+				602E0D7CB7DAAE37D8F2790761CA8147 /* Debug */,
 				C7A7D1818D0EFC96780101054439E706 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

@@ -16,7 +16,7 @@ class SignInViewModelUITests: XCTestCase {
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
+        continueAfterFailure = true
         // UI tests must launch the application that they test.
         // Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()

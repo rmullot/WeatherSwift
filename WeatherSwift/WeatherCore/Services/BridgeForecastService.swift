@@ -18,13 +18,14 @@ public final class BridgeForecastService: BridgeForecastServiceProtocol {
 
     public static func getForecasts(completionHandler: @escaping ([Forecast]?) -> Void) {
         var forecasts: [Forecast]?
+        let sortParameters = ["date": true]
         do {
-            try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: ["date": true])
+            try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
 
             if WebServiceService.sharedInstance.onlineMode != .offline {
                 BridgeForecastService.callWebservice(completionHandler: { () -> Void in
                     do {
-                        try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: ["date": true])
+                        try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
                         completionHandler(forecasts)
                     } catch let error {
                         print("ERROR: no forecast in cache  \(error)")
