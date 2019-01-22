@@ -36,16 +36,13 @@ class SignInViewModelUITests: XCTestCase {
     }
 
     func test_weather_row_event() {
-//      let count = tableView.cells.count
-//      let predicate = NSPredicate(format: "count > 0")
-//      XCTAssertTrue(count > 0)
-//      let firstCell = tableView.cells.element(boundBy: 0)
-//      firstCell.tap()
-//      let predicate = NSPredicate(format: "exists == 1")
-//      let query = app.[UITestingIdentifiers.descriptionViewController.rawValue]
-//      expectationForPredicate(predicate, evaluatedWithObject: query, handler: nil)
-//      
-//      waitForExpectationsWithTimeout(3, handler: nil)
+      let predicate = NSPredicate(format: "count > 0")
+      expectation(for: predicate, evaluatedWith: tableView.cells, handler: nil)
 
+      waitForExpectations(timeout: 3, handler: nil)
+      let firstCell = tableView.cells.element(boundBy: 0)
+      firstCell.tap()
+      let descriptionView = app.otherElements[UITestingIdentifiers.descriptionViewController.rawValue]
+      XCTAssertTrue(descriptionView.exists)
     }
 }

@@ -118,7 +118,7 @@ public final class CoreDataService: Any {
 
     resultObject?.date = forecast.date.toParsedDate()
     resultObject?.temperature = forecast.temperature
-    resultObject?.pression = forecast.pression
+    resultObject?.pressure = forecast.pressure
     resultObject?.snowRisk = forecast.snowRisk
     resultObject?.temperature = forecast.temperature
     resultObject?.rain = forecast.rain

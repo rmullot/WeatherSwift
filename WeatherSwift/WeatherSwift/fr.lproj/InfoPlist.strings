@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  WeatherSwift
+
+  Created by Romain Mullot on 22/01/2019.
+  Copyright © 2019 Romain Mullot. All rights reserved.
+*/
+
+"NSLocationWhenInUseUsageDescription" = "Authorisez-vous que cette application utilise vos coordonnées GPS?";
+

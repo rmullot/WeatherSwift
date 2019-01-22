@@ -44,14 +44,14 @@ struct ForecastListRoot: Decodable {
 
 public struct ForecastStruct: Codable {
   public var temperature: Float = 0
-  public var pression: Int32 = 0
+  public var pressure: Int32 = 0
   public let rain: Float
   public let snowRisk: String
   public var date: String
 
   enum CodingKeys: String, CodingKey {
     case temperature = "temperature"
-    case pression = "pression"
+    case pressure = "pression"
     case rain = "pluie"
     case snowRisk = "risque_neige"
     case date = "date"
@@ -63,9 +63,9 @@ public struct ForecastStruct: Codable {
     if let result = temperatures["2m"] {
       temperature = result
     }
-    let pressions = try values.decode([String: Int32].self, forKey: .pression)
-    if let result = pressions["niveau_de_la_mer"] {
-      pression = result
+    let pressures = try values.decode([String: Int32].self, forKey: .pressure)
+    if let result = pressures["niveau_de_la_mer"] {
+      pressure = result
     }
 
     rain = try values.decode(Float.self, forKey: .rain)

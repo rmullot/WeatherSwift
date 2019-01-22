@@ -16,7 +16,7 @@ extension Forecast {
     }
 
     @NSManaged public var temperature: Float
-    @NSManaged public var pression: Int32
+    @NSManaged public var pressure: Int32
     @NSManaged public var rain: Float
     @NSManaged public var snowRisk: String?
     @NSManaged public var date: NSDate?
