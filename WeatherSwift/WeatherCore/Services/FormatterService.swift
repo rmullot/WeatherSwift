@@ -14,6 +14,7 @@ protocol FormatterServiceProtocol {
   func formatterWith(format: String, locale: String?) -> DateFormatter
   func formatterWith(format: String, locale: String?, timeZone: TimeZone) -> DateFormatter
   func parserDateFormatter() -> DateFormatter
+  func nameForDate(_ date: Date) -> String
 }
 
 public final class FormatterService: FormatterServiceProtocol {
@@ -89,5 +90,25 @@ public final class FormatterService: FormatterServiceProtocol {
         cachedFormatters[parserKey] = newDateFormatter
         return newDateFormatter
     }
+  }
+
+  // MARK: Utilities
+  public func nameForDate(_ date: Date) -> String {
+
+    let createdToday = Calendar.current.isDateInToday(date)
+
+    var finalStringDate = ""
+    if createdToday {
+      finalStringDate = "Aujourd'hui"
+      let formatter = self.formatterWith(format: "HH':'mm")
+      let stringDate = formatter.string(from: date)
+      finalStringDate.append(" à \(stringDate)")
+    } else {
+      let formatter = self.formatterWith(format: "EEEE' 'dd' 'MMMM' 'yyyy' à 'HH':'mm")
+      let stringDate = formatter.string(from: date)
+      finalStringDate = stringDate
+    }
+
+    return finalStringDate
   }
 }

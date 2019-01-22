@@ -8,6 +8,7 @@
 
 import Foundation
 
-struct UITestingIdentifiers {
-    static let WeatherTableViewController = "WeatherTableViewController"
+enum UITestingIdentifiers: String {
+  case descriptionViewController
+  case weatherTableViewController
 }
