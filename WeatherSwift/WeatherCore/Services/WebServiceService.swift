@@ -8,22 +8,23 @@
 
 import UIKit
 import SwiftMessages
-import WeatherCore
 
-enum Result<T> {
+public enum Result<T> {
   case success(T)
   case error(String)
 }
 
-final class WebServiceService {
-  var onlineMode: OnlineMode = .online
-  static let sharedInstance = WebServiceService()
+public final class WebServiceService {
+
+  public var onlineMode: OnlineMode = .online
+  public static let sharedInstance = WebServiceService()
+
   private let uri = "http://www.infoclimat.fr/public-api/gfs/json?"
   private let auth = "&_auth=ARsDFAR6ACJXelNkAXdSewRsADULfVVyAX0KaVw5UC0HbARlUTFcOgBuUi8GKQs9Ay5UNwkyAzMAa1IqD30AYQFrA28EbwBnVzhTNgEuUnkEKgBhCytVcgFlCmVcL1AyB20EYlEsXDwAb1IuBjQLPgMyVCsJKQM6AGZSMQ9qAGIBZwNvBGYAa1c8Uy4BLlJjBGQAZAszVW0BZgo7XDNQZQdnBGdRZFw%2FAG5SLgYyCzsDMlQ0CTEDOABjUjQPfQB8ARsDFAR6ACJXelNkAXdSewRiAD4LYA%3D%3D&_c=f6c617cc089e19e12abda28b724dca82"
 
   private let marginMessageBox: CGFloat = 20
 
-  func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void) {
+  public func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void) {
 
     let urlString = "\(uri)_ll=48.85341,2.3488\(auth)"
     self.getDataWith(urlString: urlString, completion: { (result) in
@@ -44,16 +45,7 @@ final class WebServiceService {
         })
 
       case .error(let message):
-        let view = MessageView.viewFromNib(layout: .cardView)
-        view.configureTheme(.error)
-        view.configureContent(title: L10n.errorTitle, body: message)
-        SwiftMessages.show {
-          view.configureDropShadow()
-          view.button?.isHidden = true
-          view.layoutMarginAdditions = UIEdgeInsets(top: self.marginMessageBox, left: self.marginMessageBox, bottom: self.marginMessageBox, right: self.marginMessageBox)
-          (view.backgroundView as? CornerRoundingView)?.cornerRadius = 10
-          return view
-        }
+        ErrorService.sharedInstance.showErrorMessage(message: message)
         return completionHandler(.error(message))
       }
     })

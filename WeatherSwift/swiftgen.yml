@@ -1,6 +1,6 @@
 strings:
   inputs:
-  - WeatherSwift/Resources/en.lproj/Localizable.strings
+  - WeatherCore/Resources/en.lproj/Localizable.strings
   outputs:
     templateName: structured-swift4
-    output: WeatherSwift/Generated/Strings.swift
+    output: WeatherCore/Generated/Strings.swift

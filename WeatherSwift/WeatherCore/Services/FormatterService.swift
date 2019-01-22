@@ -14,7 +14,6 @@ protocol FormatterServiceProtocol {
   func formatterWith(format: String, locale: String?) -> DateFormatter
   func formatterWith(format: String, locale: String?, timeZone: TimeZone) -> DateFormatter
   func parserDateFormatter() -> DateFormatter
-  func bytesFormatter() -> ByteCountFormatter
 }
 
 public final class FormatterService: FormatterServiceProtocol {
@@ -86,22 +85,9 @@ public final class FormatterService: FormatterServiceProtocol {
         return cachedDateFormatter
     } else {
         let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.000Z"
+        newDateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss"
         cachedFormatters[parserKey] = newDateFormatter
-
         return newDateFormatter
-    }
-  }
-
-  public func bytesFormatter() -> ByteCountFormatter {
-    if let formatter = cachedFormatters[bytesKey] as? ByteCountFormatter {
-        return formatter
-    } else {
-        let bcf = ByteCountFormatter()
-        bcf.allowedUnits = [.useMB, .useKB, .useBytes]
-        bcf.countStyle = .binary
-        cachedFormatters[bytesKey] = bcf
-        return bcf
     }
   }
 }
