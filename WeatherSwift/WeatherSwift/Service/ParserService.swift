@@ -15,6 +15,7 @@ enum ParserResult {
 
 enum ParserError: Error {
     case decodeObject
+    case unavailableAPI
     case unknownObject
 }
 
@@ -28,6 +29,10 @@ final class ParserService {
     static func parseForecastsFromJSON(_ json: Data, completionHandler: ParserCallback? = nil) {
         do {
             let root: ForecastListRoot = try JSONDecoder().decode(ForecastListRoot.self, from: json)
+            guard root.message == "OK" && root.requestState == 200 else {
+              completionHandler?(ParserResult.failure(ParserError.unavailableAPI, "API not available"))
+              return
+            }
             let forecasts = root.forecastList.values.compactMap { return $0 }
             completionHandler?(ParserResult.success(forecasts))
         } catch DecodingError.dataCorrupted(let context) {
