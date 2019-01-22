@@ -1,7 +1,7 @@
 PODS:
   - ReachabilitySwift (4.3.0)
   - SwiftGen (6.0.2)
-  - SwiftLint (0.29.3)
+  - SwiftLint (0.30.0)
   - SwiftMessages (6.0.2):
     - SwiftMessages/App (= 6.0.2)
   - SwiftMessages/App (6.0.2)
@@ -22,9 +22,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SwiftGen: e5b047067aa84082826a0c4f1c4c2ddc95bcf74c
-  SwiftLint: bfa7ca7b4d170cfaf0d236ca3ffd969e88a2f002
+  SwiftLint: 4e37cb5cd33435170dfd09fba089f41fdbf64d53
   SwiftMessages: 8b3cc68dba2f1c91aac1a74c90b10287aac35371
 
-PODFILE CHECKSUM: 00d8003306564a2fe518815aa4d0a1adca3d214c
+PODFILE CHECKSUM: 0cc9eef60716f1495c45e9a328e5de221730fe69
 
 COCOAPODS: 1.6.0.beta.2
