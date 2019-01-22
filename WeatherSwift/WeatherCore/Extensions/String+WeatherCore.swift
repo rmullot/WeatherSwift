@@ -15,15 +15,11 @@ extension String {
     return !self.isEmpty
   }
 
-  /// convert Kelvin temperature in Celsius temperature
-  /// - Returns: A float value coresponding to a celsius temperature
-  public func isUrl(completionHandler: @escaping (Bool, URL?) -> Void) {
-    guard self.isNotEmpty else { return completionHandler(false, nil) }
-    if let url = URL(string: self) {
-      // check if your application can open the URL instance
-      return completionHandler(UIApplication.shared.canOpenURL(url), url)
-    }
-    return completionHandler(false, nil)
+  /// Return a converted date
+  public func toParsedDate() -> NSDate {
+    guard self.isNotEmpty else { return NSDate() }
+    guard let date = FormatterService.sharedInstance.parserDateFormatter().date(from: self) else { return NSDate() }
+    return date as NSDate
   }
 
 }

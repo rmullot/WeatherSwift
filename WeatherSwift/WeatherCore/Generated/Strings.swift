@@ -23,6 +23,12 @@ internal enum L10n {
   internal static let noTitle = L10n.tr("Localizable", "noTitle")
   /// OK
   internal static let okTitle = L10n.tr("Localizable", "okTitle")
+  /// Atmospheric pressure
+  internal static let pressure = L10n.tr("Localizable", "Pressure")
+  /// rain
+  internal static let rain = L10n.tr("Localizable", "Rain")
+  /// snow risk
+  internal static let snowRisk = L10n.tr("Localizable", "SnowRisk")
   /// Yes
   internal static let yesTitle = L10n.tr("Localizable", "yesTitle")
 }

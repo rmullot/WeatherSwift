@@ -14,7 +14,7 @@ protocol FormatterServiceProtocol {
   func formatterWith(format: String, locale: String?) -> DateFormatter
   func formatterWith(format: String, locale: String?, timeZone: TimeZone) -> DateFormatter
   func parserDateFormatter() -> DateFormatter
-  func bytesFormatter() -> ByteCountFormatter
+  func nameForDate(_ date: Date) -> String
 }
 
 public final class FormatterService: FormatterServiceProtocol {
@@ -86,22 +86,29 @@ public final class FormatterService: FormatterServiceProtocol {
         return cachedDateFormatter
     } else {
         let newDateFormatter = DateFormatter()
-        newDateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.000Z"
+        newDateFormatter.dateFormat = "yyyy'-'MM'-'dd' 'HH':'mm':'ss"
         cachedFormatters[parserKey] = newDateFormatter
-
         return newDateFormatter
     }
   }
 
-  public func bytesFormatter() -> ByteCountFormatter {
-    if let formatter = cachedFormatters[bytesKey] as? ByteCountFormatter {
-        return formatter
+  // MARK: Utilities
+  public func nameForDate(_ date: Date) -> String {
+
+    let createdToday = Calendar.current.isDateInToday(date)
+
+    var finalStringDate = ""
+    if createdToday {
+      finalStringDate = "Aujourd'hui"
+      let formatter = self.formatterWith(format: "HH':'mm")
+      let stringDate = formatter.string(from: date)
+      finalStringDate.append(" à \(stringDate)")
     } else {
-        let bcf = ByteCountFormatter()
-        bcf.allowedUnits = [.useMB, .useKB, .useBytes]
-        bcf.countStyle = .binary
-        cachedFormatters[bytesKey] = bcf
-        return bcf
+      let formatter = self.formatterWith(format: "EEEE' 'dd' 'MMMM' 'yyyy' à 'HH':'mm")
+      let stringDate = formatter.string(from: date)
+      finalStringDate = stringDate
     }
+
+    return finalStringDate
   }
 }

@@ -8,25 +8,25 @@
 
 import Foundation
 
-enum ParserResult {
+public enum ParserResult {
     case success(Any?)
     case failure(Swift.Error, String)
 }
 
-enum ParserError: Error {
+public enum ParserError: Error {
     case decodeObject
     case unavailableAPI
     case unknownObject
 }
 
-typealias ParserCallback = (ParserResult) -> Void
+public typealias ParserCallback = (ParserResult) -> Void
 
-final class ParserService {
+public final class ParserService {
 
     private init() { }
 
     // MARK: - Food
-    static func parseForecastsFromJSON(_ json: Data, completionHandler: ParserCallback? = nil) {
+    public static func parseForecastsFromJSON(_ json: Data, completionHandler: ParserCallback? = nil) {
         do {
             let root: ForecastListRoot = try JSONDecoder().decode(ForecastListRoot.self, from: json)
             guard root.message == "OK" && root.requestState == 200 else {
