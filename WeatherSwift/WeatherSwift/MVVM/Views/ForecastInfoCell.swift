@@ -8,14 +8,13 @@
 
 import UIKit
 
-
 final class ForecastInfoCell: UITableViewCell {
-    
+
     static let cellID = "ForecastInfoCellID"
-    
+
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var temperatureLabel: UILabel!
-    
+
     weak var viewModel: ForecastViewModel! {
         didSet {
             self.dateLabel.text = viewModel.date
@@ -26,9 +25,9 @@ final class ForecastInfoCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
     }
-    
+
 }

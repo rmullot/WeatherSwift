@@ -13,7 +13,7 @@ class DescriptionViewController: UIViewController {
    @IBOutlet weak var snowLabel: UILabel!
    @IBOutlet weak var rainLabel: UILabel!
    @IBOutlet weak var pressureLabel: UILabel!
-  
+
     override func viewDidLoad() {
       super.viewDidLoad()
       self.view.accessibilityIdentifier = UITestingIdentifiers.descriptionViewController.rawValue
@@ -22,7 +22,7 @@ class DescriptionViewController: UIViewController {
       snowLabel.text = viewModel.snowRisk
         // Do any additional setup after loading the view.
     }
-  
-  var viewModel: DescriptionViewModel! 
+
+  var viewModel: DescriptionViewModel!
 
 }

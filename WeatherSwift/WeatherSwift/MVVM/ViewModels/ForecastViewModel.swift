@@ -10,31 +10,27 @@ import Foundation
 import WeatherCore
 
 final class ForecastViewModel {
-    
+
     private var forecast: Forecast?
-    
+
     private init() {}
-    
+
     init(forecast: Forecast) {
         self.forecast = forecast
     }
-    
+
     var date: String {
-        get {
-            guard let date = self.forecast?.date else {
-                return ""
-            }
-          return FormatterService.sharedInstance.nameForDate(date as Date)
-        }
+      guard let date = self.forecast?.date else {
+            return ""
+      }
+      return FormatterService.sharedInstance.nameForDate(date as Date)
     }
-    
+
     var weatherDescription: String {
-        get {
-          guard let temperature = self.forecast?.temperature else {
-                return ""
-          }
-          return String(format: "%.2f˚ Celsius", temperature.convertKelvinInCelsius())
+        guard let temperature = self.forecast?.temperature else {
+              return ""
         }
+        return String(format: "%.2f˚ Celsius", temperature.convertKelvinInCelsius())
     }
-    
+
 }
