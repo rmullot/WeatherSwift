@@ -11,38 +11,47 @@ import XCTest
 class SignInViewModelUITests: XCTestCase {
 
     private var app: XCUIApplication!
-    private var tableView: XCUIElement!
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+      // Put setup code here. This method is called before the invocation of each test method in the class.
 
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = true
-        // UI tests must launch the application that they test.
-        // Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
+      // In UI tests it is usually best to stop immediately when a failure occurs.
+      continueAfterFailure = false
+      // UI tests must launch the application that they test.
+      // Doing this in setup will make sure it happens for each test method.
 
-        // In UI tests it’s important to set the initial state - such as interface orientation
-        // - required for your tests before they run. The setUp method is a good place to do this.
-        XCUIApplication.accessibilityActivate()
+      app = XCUIApplication()
+      // In UI tests it’s important to set the initial state - such as interface orientation
+      // - required for your tests before they run. The setUp method is a good place to do this.
+      app.accessibilityActivate()
+      app.launch()
+      // In case where the splashscreen is a problem
+      sleep(1)
 
-        app = XCUIApplication()
-
-        XCTAssertTrue(app.tables[UITestingIdentifiers.weatherTableViewController.rawValue].exists)
-        tableView = app.tables[UITestingIdentifiers.weatherTableViewController.rawValue]
+      addUIInterruptionMonitor(withDescription: "Authorisez-vous que cette application utilise vos coordonnées GPS?") { (alert) -> Bool in
+        alert.buttons["Autoriser"].tap()
+        return true
+      }
+      // To fire addUIInterruptionMonitor
+      let normalized = app.coordinate(withNormalizedOffset: CGVector(dx: 0, dy: 0))
+      normalized.tap()
     }
 
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func test_weather_row_event() {
-      let predicate = NSPredicate(format: "count > 0")
-      expectation(for: predicate, evaluatedWith: tableView.cells, handler: nil)
+    func test_display_description_weather() {
 
-      waitForExpectations(timeout: 3, handler: nil)
-      let firstCell = tableView.cells.element(boundBy: 0)
-      firstCell.tap()
-      let descriptionView = app.otherElements[UITestingIdentifiers.descriptionViewController.rawValue]
+      XCTAssertTrue(app.tables[UITestingIdentifiers.weatherTableViewController.rawValue].exists)
+      let tableView = app.tables[UITestingIdentifiers.weatherTableViewController.rawValue]
+
+      let exists = NSPredicate(format: "self.count > 0")
+      expectation (for: exists, evaluatedWith: tableView.cells, handler: nil)
+      waitForExpectations(timeout: 5, handler: { (_) in
+
+      })
+      tableView.cells.element(boundBy: 0).tap()
+      let descriptionView = self.app.otherElements[UITestingIdentifiers.descriptionViewController.rawValue]
       XCTAssertTrue(descriptionView.exists)
     }
 }
