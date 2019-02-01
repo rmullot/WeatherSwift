@@ -778,7 +778,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n./Pods/SwiftLint/swiftlint autocorrect --config \".swiftlint.auto.yml\" && ./Pods/SwiftLint/swiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		7AC9D0E921F747270073F6EE /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
