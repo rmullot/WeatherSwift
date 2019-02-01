@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 import WeatherCore
 
-protocol NavigationServiceProtocol {
-    func navigateToDescription(forecast: Forecast)
+public protocol NavigationServiceProtocol {
+  func navigateToDescription(forecast: Forecast)
 }
 
-final class NavigationService: NavigationServiceProtocol {
+public final class NavigationService: NavigationServiceProtocol {
 
   // MARK: - Attributes
 
@@ -22,14 +22,14 @@ final class NavigationService: NavigationServiceProtocol {
 
   private var navigationController: UINavigationController {
     guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else {
-        fatalError()
+      fatalError()
     }
     return navigationController
   }
 
   // MARK: - Methods
 
- func navigateToDescription(forecast: Forecast) {
+  public func navigateToDescription(forecast: Forecast) {
     guard navigationController.visibleViewController is WeatherTableViewController  else { return }
     if let descriptionViewController = loadViewController("DescriptionViewController") as? DescriptionViewController {
       descriptionViewController.viewModel = DescriptionViewModel(forecast: forecast)

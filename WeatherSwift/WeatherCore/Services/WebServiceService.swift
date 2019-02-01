@@ -14,7 +14,12 @@ public enum Result<T> {
   case error(String)
 }
 
-public final class WebServiceService {
+public protocol WebServiceServiceProtocol {
+  func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void)
+  func cancelRequests()
+}
+
+public final class WebServiceService: WebServiceServiceProtocol {
 
   public var onlineMode: OnlineMode = .online
   public static let sharedInstance = WebServiceService()

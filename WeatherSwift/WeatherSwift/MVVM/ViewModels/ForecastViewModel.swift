@@ -9,28 +9,28 @@
 import Foundation
 import WeatherCore
 
-final class ForecastViewModel {
+final class ForecastViewModel: BaseViewModel {
 
-    private var forecast: Forecast?
+  private var forecast: Forecast?
 
-    private init() {}
+  internal required init() {}
 
-    init(forecast: Forecast) {
-        self.forecast = forecast
+  init(forecast: Forecast) {
+    self.forecast = forecast
+  }
+
+  var date: String {
+    guard let date = self.forecast?.date else {
+      return ""
     }
+    return FormatterService.sharedInstance.nameForDate(date as Date)
+  }
 
-    var date: String {
-      guard let date = self.forecast?.date else {
-            return ""
-      }
-      return FormatterService.sharedInstance.nameForDate(date as Date)
+  var weatherDescription: String {
+    guard let temperature = self.forecast?.temperature else {
+      return ""
     }
-
-    var weatherDescription: String {
-        guard let temperature = self.forecast?.temperature else {
-              return ""
-        }
-        return String(format: "%.2f˚ Celsius", temperature.convertKelvinInCelsius())
-    }
+    return String(format: "%.2f˚ Celsius", temperature.convertKelvinInCelsius())
+  }
 
 }

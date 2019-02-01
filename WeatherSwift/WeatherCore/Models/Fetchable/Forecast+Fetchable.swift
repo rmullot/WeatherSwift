@@ -11,10 +11,10 @@ import CoreData
 
 extension Forecast: Fetchable {
 
-    public typealias FetchableType = Forecast
+  public typealias FetchableType = Forecast
 
-    static public var entityName: String {
-        return "Forecast"
-    }
+  static public var entityName: String {
+    return "Forecast"
+  }
 
 }

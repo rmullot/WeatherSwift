@@ -8,20 +8,20 @@
 
 import UIKit
 
-class DescriptionViewController: UIViewController {
+final class DescriptionViewController: UIViewController {
 
-   @IBOutlet weak var snowLabel: UILabel!
-   @IBOutlet weak var rainLabel: UILabel!
-   @IBOutlet weak var pressureLabel: UILabel!
+  @IBOutlet weak var snowLabel: UILabel!
+  @IBOutlet weak var rainLabel: UILabel!
+  @IBOutlet weak var pressureLabel: UILabel!
 
-    override func viewDidLoad() {
-      super.viewDidLoad()
-      self.view.accessibilityIdentifier = UITestingIdentifiers.descriptionViewController.rawValue
-      pressureLabel.text = viewModel.pressure
-      rainLabel.text = viewModel.rain
-      snowLabel.text = viewModel.snowRisk
-        // Do any additional setup after loading the view.
-    }
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    self.view.accessibilityIdentifier = UITestingIdentifiers.descriptionViewController.rawValue
+    pressureLabel.text = viewModel.pressure
+    rainLabel.text = viewModel.rain
+    snowLabel.text = viewModel.snowRisk
+    // Do any additional setup after loading the view.
+  }
 
   var viewModel: DescriptionViewModel!
 

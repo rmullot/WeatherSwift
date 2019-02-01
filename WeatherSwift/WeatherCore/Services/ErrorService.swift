@@ -9,7 +9,7 @@
 import Foundation
 import SwiftMessages
 
-protocol ErrorServiceProtocol {
+public protocol ErrorServiceProtocol {
   func showErrorMessage(message: String)
 }
 

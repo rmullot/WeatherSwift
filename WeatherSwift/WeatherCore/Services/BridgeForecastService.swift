@@ -8,50 +8,50 @@
 
 import CoreData
 
-protocol BridgeForecastServiceProtocol {
+public protocol BridgeForecastServiceProtocol {
   static func getForecasts(completionHandler: @escaping ([Forecast]?) -> Void)
 }
 
 public final class BridgeForecastService: BridgeForecastServiceProtocol {
 
-    private init() {}
+  private init() {}
 
-    public static func getForecasts(completionHandler: @escaping ([Forecast]?) -> Void) {
-        var forecasts: [Forecast]?
-        let sortParameters = ["date": true]
-        do {
+  public static func getForecasts(completionHandler: @escaping ([Forecast]?) -> Void) {
+    var forecasts: [Forecast]?
+    let sortParameters = ["date": true]
+    do {
+      try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
+
+      if WebServiceService.sharedInstance.onlineMode != .offline {
+        BridgeForecastService.callWebservice(completionHandler: { () -> Void in
+          do {
             try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
-
-            if WebServiceService.sharedInstance.onlineMode != .offline {
-                BridgeForecastService.callWebservice(completionHandler: { () -> Void in
-                    do {
-                        try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
-                        completionHandler(forecasts)
-                    } catch let error {
-                        print("ERROR: no forecast in cache  \(error)")
-                    }
-                })
-            } else {
-                completionHandler(forecasts)
-            }
-        } catch let error {
+            completionHandler(forecasts)
+          } catch let error {
             print("ERROR: no forecast in cache  \(error)")
-        }
-
+          }
+        })
+      } else {
+        completionHandler(forecasts)
+      }
+    } catch let error {
+      print("ERROR: no forecast in cache  \(error)")
     }
 
-    static private func callWebservice(completionHandler: @escaping () -> Void) {
-      WebServiceService.sharedInstance.getForecastList { (result) in
-        switch result {
-        case .success(let forecasts):
-          CoreDataService.sharedInstance.clearData()
-          CoreDataService.sharedInstance.saveForecastsData(forecasts)
-          completionHandler()
-        case .error(let message):
-          print(message)
-          completionHandler()
-        }
+  }
+
+  static private func callWebservice(completionHandler: @escaping () -> Void) {
+    WebServiceService.sharedInstance.getForecastList { (result) in
+      switch result {
+      case .success(let forecasts):
+        CoreDataService.sharedInstance.clearData()
+        CoreDataService.sharedInstance.saveForecastsData(forecasts)
+        completionHandler()
+      case .error(let message):
+        print(message)
+        completionHandler()
       }
     }
+  }
 
 }

@@ -53,6 +53,16 @@
                referenceType = "1">
             </LocationScenarioReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "7AE3B4BE2204A43200E2BF1D"
+               BuildableName = "WeatherUITests.xctest"
+               BlueprintName = "WeatherUITests"
+               ReferencedContainer = "container:WeatherSwift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

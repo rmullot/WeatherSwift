@@ -14,15 +14,15 @@ target 'WeatherSwift' do
 
 end
 
-  target 'WeatherSwiftTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+target 'WeatherSwiftTests' do
+  inherit! :search_paths
+  # Pods for testing
+end
 
-  target 'WeatherSwiftUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+target 'WeatherSwiftUITests' do
+  inherit! :search_paths
+  # Pods for testing
+end
 
 target 'WeatherCore' do
   use_frameworks!
@@ -33,13 +33,21 @@ target 'WeatherCore' do
 
 end
 
+target 'WeatherUI' do
+  use_frameworks!
+  
+  # Pods for WeatherCore
+  pod 'AlamofireImage', '~> 3.5.0'
+
+end
+
 
 post_install do |installer|
     puts 'Add whole module optimization for all Swift pods Debug configuration'
     installer.pods_project.targets.each do |target|
         target.build_configurations.each do |config|
             if config.name == 'Debug'
-		config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = "YES"
+    config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = "YES"
                 config.build_settings['SWIFT_OPTIMIZATION_LEVEL'] = '-Owholemodule'
                 config.build_settings['OTHER_SWIFT_FLAGS'] = '$(inherited) -Onone'
 

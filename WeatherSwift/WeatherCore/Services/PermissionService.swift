@@ -48,7 +48,7 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
   }
 
   public func startLocalisation() {
-     locationManager.startUpdatingLocation()
+    locationManager.startUpdatingLocation()
   }
 
   private func getPermisionStatus() -> LocationStatus {
@@ -68,8 +68,8 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
   }
 
   private override init() {
-     super.init()
-     locationManager.delegate = self
+    super.init()
+    locationManager.delegate = self
   }
 
 }

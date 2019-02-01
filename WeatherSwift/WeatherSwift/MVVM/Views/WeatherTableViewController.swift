@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WeatherUI
 
 final class WeatherTableViewController: UIViewController {
 
@@ -18,7 +19,7 @@ final class WeatherTableViewController: UIViewController {
     super.viewDidLoad()
     self.tableView.accessibilityIdentifier = UITestingIdentifiers.weatherTableViewController.rawValue
     self.title = "WEATHER"
-    self.tableView.register(UINib(nibName: "ForecastInfoCell", bundle: nil), forCellReuseIdentifier: ForecastInfoCell.cellID)
+    self.tableView.registerReusableCell(ForecastInfoCell.self)
     self.viewModel = WeatherInfoViewModel()
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
@@ -26,11 +27,11 @@ final class WeatherTableViewController: UIViewController {
 
   var viewModel: WeatherInfoViewModel! {
     didSet {
-        self.viewModel.forecastsDidChange = { [weak self] viewModel in
-            self?.refreshControl.endRefreshing()
-            self?.tableView.reloadData()
-        }
-        viewModel.updateForecasts()
+      self.viewModel.forecastsDidChange = { [weak self] viewModel in
+        self?.refreshControl.endRefreshing()
+        self?.tableView.reloadData()
+      }
+      viewModel.updateForecasts()
     }
   }
 
@@ -52,11 +53,9 @@ extension WeatherTableViewController: UITableViewDataSource {
   }
 
   public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if let cellForecast = tableView.dequeueReusableCell(withIdentifier: ForecastInfoCell.cellID, for: indexPath) as? ForecastInfoCell {
-        cellForecast.viewModel = viewModel.getForecastViewModel(index: indexPath.row)
-        return cellForecast
-    }
-    return UITableViewCell()
+    let cellForecast = tableView.dequeueReusableCell(ForecastInfoCell.self, indexPath: indexPath)
+    cellForecast.viewModel = viewModel.getForecastViewModel(index: indexPath.row)
+    return cellForecast
   }
 
   public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

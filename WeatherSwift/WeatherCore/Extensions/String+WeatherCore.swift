@@ -15,6 +15,14 @@ extension String {
     return !self.isEmpty
   }
 
+  public func isUrl(_ completionHandler: @escaping (Bool, URL?) -> Void ) {
+    guard self.isNotEmpty, let url = URL(string: self) else {
+      return completionHandler(false, nil)
+    }
+    return completionHandler(UIApplication.shared.canOpenURL(url), url)
+
+  }
+
   /// Return a converted date
   public func toParsedDate() -> NSDate {
     guard self.isNotEmpty else { return NSDate() }
