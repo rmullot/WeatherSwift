@@ -2,7 +2,7 @@
 //  Forecast+CoreDataProperties.swift
 //  
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //
 //
 

@@ -2,13 +2,13 @@
 //  DescriptionViewController.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
 import UIKit
 
-final class DescriptionViewController: UIViewController {
+final class DescriptionViewController: BaseViewController<DescriptionViewModel> {
 
   @IBOutlet weak var snowLabel: UILabel!
   @IBOutlet weak var rainLabel: UILabel!
@@ -22,7 +22,5 @@ final class DescriptionViewController: UIViewController {
     snowLabel.text = viewModel.snowRisk
     // Do any additional setup after loading the view.
   }
-
-  var viewModel: DescriptionViewModel!
 
 }

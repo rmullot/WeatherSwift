@@ -31,17 +31,12 @@ public final class NavigationService: NavigationServiceProtocol {
 
   public func navigateToDescription(forecast: Forecast) {
     guard navigationController.visibleViewController is WeatherTableViewController  else { return }
-    if let descriptionViewController = loadViewController("DescriptionViewController") as? DescriptionViewController {
-      descriptionViewController.viewModel = DescriptionViewModel(forecast: forecast)
-      navigationController.pushViewController(descriptionViewController, animated: true)
-    }
+    let descriptionViewController = DescriptionViewController.initFromNib()
+    descriptionViewController.viewModel = DescriptionViewModel(forecast: forecast)
+    navigationController.pushViewController(descriptionViewController, animated: true)
   }
 
   // MARK: - Private Methods
 
   private init() {}
-
-  private func loadViewController(_ identifier: String) -> UIViewController {
-    return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier)
-  }
 }

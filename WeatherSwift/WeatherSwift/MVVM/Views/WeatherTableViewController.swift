@@ -2,14 +2,14 @@
 //  WeatherTableViewController.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
 import UIKit
 import WeatherUI
 
-final class WeatherTableViewController: UIViewController {
+final class WeatherTableViewController: BaseViewController<WeatherInfoViewModel>, UITableViewDelegate, UITableViewDataSource {
 
   @IBOutlet weak var tableView: UITableView!
 
@@ -23,26 +23,18 @@ final class WeatherTableViewController: UIViewController {
     self.viewModel = WeatherInfoViewModel()
     tableView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
-  }
-
-  var viewModel: WeatherInfoViewModel! {
-    didSet {
-      self.viewModel.forecastsDidChange = { [weak self] viewModel in
-        self?.refreshControl.endRefreshing()
-        self?.tableView.reloadData()
-      }
-      viewModel.updateForecasts()
+    self.viewModel.forecastsDidChange = { [weak self] viewModel in
+      self?.refreshControl.endRefreshing()
+      self?.tableView.reloadData()
     }
+    viewModel.updateForecasts()
   }
 
   @objc private func refresh(_ sender: Any) {
     viewModel.updateForecasts()
   }
 
-}
-
-// MARK: - UITableViewDataSource
-extension WeatherTableViewController: UITableViewDataSource {
+  // MARK: - UITableViewDataSource
 
   public func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -70,10 +62,7 @@ extension WeatherTableViewController: UITableViewDataSource {
     return 1
   }
 
-}
-
-// MARK: - UITableViewDelegate
-extension WeatherTableViewController: UITableViewDelegate {
+  // MARK: - UITableViewDelegate
 
   public func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
     return UIView()
