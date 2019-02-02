@@ -2,7 +2,7 @@
 //  WebServiceService.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
@@ -14,7 +14,12 @@ public enum Result<T> {
   case error(String)
 }
 
-public final class WebServiceService {
+public protocol WebServiceServiceProtocol {
+  func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void)
+  func cancelRequests()
+}
+
+public final class WebServiceService: WebServiceServiceProtocol {
 
   public var onlineMode: OnlineMode = .online
   public static let sharedInstance = WebServiceService()

@@ -2,22 +2,36 @@
 //  AppDelegate.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
 import UIKit
 import CoreData
 import WeatherCore
+import WeatherUI
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  var navigationController: UINavigationController!
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
+    window = UIWindow(frame: UIScreen.main.bounds)
+    let searchViewController = WeatherTableViewController.initFromNib()
+    navigationController = UINavigationController(rootViewController: searchViewController)
+    window!.rootViewController = navigationController
+    window!.makeKeyAndVisible()
+    configServices()
     return true
+  }
+
+  private func configServices() {
+    CentralService.sharedInstance.register { NavigationService.sharedInstance as NavigationServiceProtocol }
+    CentralService.sharedInstance.register { WebServiceService.sharedInstance as WebServiceServiceProtocol }
+    CentralService.sharedInstance.register { ErrorService.sharedInstance as ErrorServiceProtocol }
   }
 
   func applicationWillResignActive(_ application: UIApplication) {

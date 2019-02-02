@@ -2,7 +2,7 @@
 //  NetworkActivityService.swift
 //  WeatherCore
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
@@ -12,10 +12,10 @@ import UIKit
 // MARK: - NetworkActivityService Protocol
 
 public protocol NetworkActivityServiceProtocol {
-    var countRequest: MutexCounter { get set }
-    func newRequestStarted() -> Int
-    func requestFinished() -> Int
-    func disableActivityIndicator()
+  var countRequest: MutexCounter { get set }
+  func newRequestStarted() -> Int
+  func requestFinished() -> Int
+  func disableActivityIndicator()
 }
 
 // MARK: - NetworkActivityService
@@ -34,41 +34,41 @@ public final class NetworkActivityService: NetworkActivityServiceProtocol {
 
   @discardableResult
   public func newRequestStarted() -> Int {
-      let count = countRequest.incrementAndGet()
-      if !UIApplication.shared.isNetworkActivityIndicatorVisible {
-          UIApplication.shared.isNetworkActivityIndicatorVisible = true
-      }
-      if let closure = disableActivityIndicatorClosure {
-          closure()
-      }
+    let count = countRequest.incrementAndGet()
+    if !UIApplication.shared.isNetworkActivityIndicatorVisible {
+      UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    if let closure = disableActivityIndicatorClosure {
+      closure()
+    }
 
-      disableActivityIndicatorClosure = DispatchQueue.main.cancellableAsyncAfter(secondsDeadline: maxActivityDuration) {
-          self.disableActivityIndicator()
-      }
+    disableActivityIndicatorClosure = DispatchQueue.main.cancellableAsyncAfter(secondsDeadline: maxActivityDuration) {
+      self.disableActivityIndicator()
+    }
 
-      return count
+    return count
   }
 
   @discardableResult
   public func requestFinished() -> Int {
-      let currentCounter = countRequest.decrementAndGet()
+    let currentCounter = countRequest.decrementAndGet()
 
-      if currentCounter <= 0 {
-          if let closure = disableActivityIndicatorClosure {
-              closure()
-          }
-          countRequest.setValue(0)
-          UIApplication.shared.isNetworkActivityIndicatorVisible = false
-      }
-      return currentCounter
-  }
-
-  public func disableActivityIndicator() {
+    if currentCounter <= 0 {
       if let closure = disableActivityIndicatorClosure {
-          closure()
+        closure()
       }
       countRequest.setValue(0)
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    return currentCounter
+  }
+
+  public func disableActivityIndicator() {
+    if let closure = disableActivityIndicatorClosure {
+      closure()
+    }
+    countRequest.setValue(0)
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
   }
 
 }

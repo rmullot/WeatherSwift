@@ -2,7 +2,7 @@
 //  MultiCastDelegate.swift
 //  WeatherCore
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
@@ -17,32 +17,32 @@ public final class MulticastDelegate <T> {
   fileprivate let addClosure: ((T) -> Void)?
 
   public init(addClosure: ((T) -> Void)? = nil) {
-      self.addClosure = addClosure
+    self.addClosure = addClosure
   }
 
   public func add(_ delegate: T) {
-      self.lock.sync {
-          delegates.add(delegate as AnyObject)
-          self.addClosure?(delegate)
-      }
+    self.lock.sync {
+      delegates.add(delegate as AnyObject)
+      self.addClosure?(delegate)
+    }
   }
 
   public func remove(_ delegate: T) {
-      self.lock.sync {
-          for oneDelegate in delegates.allObjects.reversed() where oneDelegate === delegate as AnyObject {
-              delegates.remove(oneDelegate)
-          }
+    self.lock.sync {
+      for oneDelegate in delegates.allObjects.reversed() where oneDelegate === delegate as AnyObject {
+        delegates.remove(oneDelegate)
       }
+    }
   }
 
   public func invoke(_ invocation: (T) -> Void) {
-      self.lock.sync {
-          for delegate in delegates.allObjects.reversed() {
-              if let delegate = delegate as? T {
-                  invocation(delegate)
-              }
-          }
+    self.lock.sync {
+      for delegate in delegates.allObjects.reversed() {
+        if let delegate = delegate as? T {
+          invocation(delegate)
+        }
       }
+    }
   }
 
 }

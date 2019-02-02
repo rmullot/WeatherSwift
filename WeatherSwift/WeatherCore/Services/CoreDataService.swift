@@ -2,7 +2,7 @@
 //  CoreDataService.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
@@ -19,7 +19,7 @@ public enum CoreDataError: Error {
 
 public typealias CoreDataCallback = (CoreDataResult) -> Void
 
-protocol CoreDataServiceProtocol {
+public protocol CoreDataServiceProtocol {
   func saveContext()
   func saveForecastsData(_ forecastStructs: [ForecastStruct])
   func clearData()
@@ -74,23 +74,23 @@ public final class CoreDataService: Any {
   }
 
   public func saveForecastsData(_ forecastStructs: [ForecastStruct]) {
-      var errorMessage = ""
-      forecastStructs.forEach {
-          convertForecast($0, completionHandler: { result in
-          switch result {
-          case .failure(_, let message):
+    var errorMessage = ""
+    forecastStructs.forEach {
+      convertForecast($0, completionHandler: { result in
+        switch result {
+        case .failure(_, let message):
           errorMessage = message
-          default:
-            break
-          }
-        })
-      }
+        default:
+          break
+        }
+      })
+    }
 
-      if errorMessage.isEmpty {
-          self.saveContext()
-      } else {
-          ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
-      }
+    if errorMessage.isEmpty {
+      self.saveContext()
+    } else {
+      ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
+    }
   }
 
   private func convertForecast(_ forecast: ForecastStruct, completionHandler: CoreDataCallback? = nil) {
@@ -126,16 +126,16 @@ public final class CoreDataService: Any {
   }
 
   public func clearData() {
+    do {
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Forecast.entityName)
       do {
-          let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Forecast.entityName)
-          do {
-              let objects  = try self.persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject]
-              objects?.forEach { self.persistentContainer.viewContext.delete($0) }
-              self.saveContext()
-          } catch let error {
-              print("ERROR DELETING : \(error)")
-          }
+        let objects  = try self.persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject]
+        objects?.forEach { self.persistentContainer.viewContext.delete($0) }
+        self.saveContext()
+      } catch let error {
+        print("ERROR DELETING : \(error)")
       }
+    }
   }
 
   private init() {}

@@ -2,7 +2,7 @@
 //  PermissionService.swift
 //  WeatherCore
 //
-//  Created by Romain Mullot on 22/01/2019.
+//  Created by Romain Mullot on 02/02/2019.
 //  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
@@ -48,7 +48,7 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
   }
 
   public func startLocalisation() {
-     locationManager.startUpdatingLocation()
+    locationManager.startUpdatingLocation()
   }
 
   private func getPermisionStatus() -> LocationStatus {
@@ -68,8 +68,8 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
   }
 
   private override init() {
-     super.init()
-     locationManager.delegate = self
+    super.init()
+    locationManager.delegate = self
   }
 
 }
