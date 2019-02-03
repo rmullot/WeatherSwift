@@ -24,12 +24,13 @@ public final class WebServiceService: WebServiceServiceProtocol {
   public var onlineMode: OnlineMode = .online
   public static let sharedInstance = WebServiceService()
 
-  private let uri = "http://www.infoclimat.fr/public-api/gfs/json?"
-  private let auth = "&_auth=ARsDFAR6ACJXelNkAXdSewRsADULfVVyAX0KaVw5UC0HbARlUTFcOgBuUi8GKQs9Ay5UNwkyAzMAa1IqD30AYQFrA28EbwBnVzhTNgEuUnkEKgBhCytVcgFlCmVcL1AyB20EYlEsXDwAb1IuBjQLPgMyVCsJKQM6AGZSMQ9qAGIBZwNvBGYAa1c8Uy4BLlJjBGQAZAszVW0BZgo7XDNQZQdnBGdRZFw%2FAG5SLgYyCzsDMlQ0CTEDOABjUjQPfQB8ARsDFAR6ACJXelNkAXdSewRiAD4LYA%3D%3D&_c=f6c617cc089e19e12abda28b724dca82"
+  private let uri = "https://api.openweathermap.org/data/2.5/forecast/daily?lat=%f&lon=%f&mode=json&units=metrics&cnt=16&appid=%@"
+  private let apiKey = "648a3aac37935e5b45e09727df728ac2"
 
   private var urlForecast = ""
 
   private let marginMessageBox: CGFloat = 20
+  private let defaultCoordinates = CGPoint(x: 48.85341, y: 2.3488)
 
   public func getForecastList(completionHandler: @escaping (Result<[ForecastStruct]>) -> Void) {
 
@@ -38,7 +39,7 @@ public final class WebServiceService: WebServiceServiceProtocol {
       switch permissionStatus {
       case .granted :
         PermissionService.sharedInstance.locationUpdatedCompletionHandler = { (permissionStatus, coordinates) in
-          self.urlForecast = "\(self.uri)_ll=\(coordinates.x),\(coordinates.y)\(self.auth)"
+          self.urlForecast = String(format: self.uri, coordinates.x, coordinates.y, self.apiKey)
           self.launchForecastRequest(completionHandler: { (result) in
             completionHandler(result)
           })
@@ -59,10 +60,11 @@ public final class WebServiceService: WebServiceServiceProtocol {
     self.getDataWith(urlString: urlForecast, completion: { (result) in
       switch result {
       case .success(let data):
-        ParserService.parseForecastsFromJSON(data, completionHandler: { result in
+        ParserService<ForecastListRoot>.parse(data, completionHandler: { result in
           switch result {
-          case .success(let forecasts):
-            guard let forecasts  = forecasts as? [ForecastStruct] else {
+          case .success(let forecastRoot):
+
+            guard let forecasts  = forecastRoot?.forecastList else {
               completionHandler(.error("Returned object is not an array of ForecastStruct type"))
               return
             }
@@ -112,7 +114,7 @@ public final class WebServiceService: WebServiceServiceProtocol {
   }
   private init() {
     ReachabilityService.sharedInstance.delegates.add(self)
-    urlForecast = "\(uri)_ll=48.85341,2.3488\(auth)"
+    urlForecast = String(format: uri, defaultCoordinates.x, defaultCoordinates.y, apiKey)
   }
 
   deinit {

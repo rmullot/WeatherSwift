@@ -10,5 +10,5 @@ import Foundation
 
 enum UITestingIdentifiers: String {
   case descriptionViewController
-  case weatherTableViewController
+  case weatherCollectionViewController
 }

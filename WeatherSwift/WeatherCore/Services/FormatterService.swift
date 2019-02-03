@@ -24,8 +24,6 @@ public final class FormatterService: FormatterServiceProtocol {
   // MARK: Properties
 
   private var cachedFormatters = [String: Formatter]()
-  private let bytesKey = "bytesFormatter"
-  private let formatParser = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.000Z"
   private let parserKey = "parserDateFormatter"
 
   // MARK: Initialization
@@ -110,5 +108,13 @@ public final class FormatterService: FormatterServiceProtocol {
     }
 
     return finalStringDate
+  }
+
+  static func convertFahrenheitInCelsius(_ fahrenheit: Double) -> Double {
+    return  (fahrenheit - 32) / 1.8000
+  }
+
+  static func convertKelvinInCelsius(_ kelvin: Double) -> Double {
+    return  kelvin - 273.15
   }
 }

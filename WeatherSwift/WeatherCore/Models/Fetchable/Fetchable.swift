@@ -10,6 +10,7 @@ import CoreData
 
 public protocol Fetchable {
   associatedtype FetchableType: NSManagedObject
+
   static var entityName: String { get }
 }
 
@@ -37,6 +38,7 @@ extension Fetchable where FetchableType == Self {
   public static func objectsInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil) throws -> [FetchableType] {
     let request = fetchRequest(context, predicate: predicate, sortedBy: sortedBy)
     let fetchResults = try context.fetch(request)
+
     return fetchResults as! [FetchableType]
   }
 
@@ -59,7 +61,7 @@ extension Fetchable where FetchableType == Self {
     }
 
     if sortedBy != nil {
-      var sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor]()
+      var sortDescriptors = [NSSortDescriptor]()
       for (key, value) in sortedBy! {
         let sort = NSSortDescriptor(key: key, ascending: value)
         sortDescriptors.append(sort)

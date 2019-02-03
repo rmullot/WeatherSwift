@@ -34,7 +34,7 @@ final class DescriptionViewModel: BaseViewModel {
   }
 
   var snowRisk: String {
-    guard let snowRisk = self.forecast?.snowRisk else {
+    guard let snowRisk = self.forecast?.snow else {
       return ""
     }
     return "\(L10n.snowRisk): \(snowRisk)"

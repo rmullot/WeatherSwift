@@ -42,8 +42,8 @@ class SignInViewModelUITests: XCTestCase {
 
     func test_display_description_weather() {
 
-      XCTAssertTrue(app.tables[UITestingIdentifiers.weatherTableViewController.rawValue].exists)
-      let tableView = app.tables[UITestingIdentifiers.weatherTableViewController.rawValue]
+      XCTAssertTrue(app.tables[UITestingIdentifiers.weatherCollectionViewController.rawValue].exists)
+      let tableView = app.tables[UITestingIdentifiers.weatherCollectionViewController.rawValue]
 
       let exists = NSPredicate(format: "self.count > 0")
       expectation (for: exists, evaluatedWith: tableView.cells, handler: nil)

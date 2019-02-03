@@ -23,7 +23,14 @@ final class ForecastViewModel: BaseViewModel {
     guard let date = self.forecast?.date else {
       return ""
     }
-    return FormatterService.sharedInstance.nameForDate(date as Date)
+    return FormatterService.sharedInstance.nameForDate(Date(timeIntervalSince1970: date))
+  }
+
+  var forecastImageURL: String {
+    get {
+      guard let idImage = self.forecast?.idImage, idImage.isNotEmpty else { return "" }
+      return idImage
+    }
   }
 
   var weatherDescription: String {

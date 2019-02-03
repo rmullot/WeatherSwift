@@ -8,13 +8,15 @@
 
 import UIKit
 
-final class ForecastInfoCell: UITableViewCell {
+final class ForecastInfoCell: UICollectionViewCell {
 
+  @IBOutlet weak var weatherIcon: UIImageView!
   @IBOutlet weak var dateLabel: UILabel!
   @IBOutlet weak var temperatureLabel: UILabel!
 
   weak var viewModel: ForecastViewModel! {
     didSet {
+      self.weatherIcon.loadImageWithUrl(viewModel.forecastImageURL, placeHolder: UIImage(named: "placeholder"))
       self.dateLabel.text = viewModel.date
       self.temperatureLabel.text = viewModel.weatherDescription
     }
@@ -22,10 +24,6 @@ final class ForecastInfoCell: UITableViewCell {
 
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-  }
-
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super .init(style: style, reuseIdentifier: reuseIdentifier)
   }
 
 }
