@@ -121,7 +121,6 @@ public final class CoreDataService: Any {
     resultObject?.pressure = forecast.pressure
     resultObject?.snow = forecast.snow ?? -1
     resultObject?.speed = forecast.speed ?? -1
-    //TODO: save all the temperatures
     resultObject?.temperature = Double(forecast.temperature?.day ?? Float.greatestFiniteMagnitude)
     resultObject?.rain = forecast.rain ?? -1
     resultObject?.informations = forecast.informations

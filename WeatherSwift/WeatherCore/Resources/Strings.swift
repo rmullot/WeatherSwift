@@ -13,10 +13,18 @@ import Foundation
 public enum L10n {
   /// Bad Network
   public static let badNetworkMessage = L10n.tr("Localizable", "badNetworkMessage")
+  /// clouds
+  public static let clouds = L10n.tr("Localizable", "Clouds")
+  /// It's cold!
+  public static let coldWeather = L10n.tr("Localizable", "ColdWeather")
   /// Error
   public static let errorTitle = L10n.tr("Localizable", "errorTitle")
   /// Unavailable or lost Network.
   public static let errorUnavailableNetwork = L10n.tr("Localizable", "errorUnavailableNetwork")
+  /// It's hot!
+  public static let hotWeather = L10n.tr("Localizable", "HotWeather")
+  /// humidity
+  public static let humidity = L10n.tr("Localizable", "Humidity")
   /// Network available
   public static let networkAvailableMessage = L10n.tr("Localizable", "networkAvailableMessage")
   /// No
@@ -29,6 +37,8 @@ public enum L10n {
   public static let rain = L10n.tr("Localizable", "Rain")
   /// snow risk
   public static let snowRisk = L10n.tr("Localizable", "SnowRisk")
+  /// Weather
+  public static let weather = L10n.tr("Localizable", "Weather")
   /// Yes
   public static let yesTitle = L10n.tr("Localizable", "yesTitle")
 }

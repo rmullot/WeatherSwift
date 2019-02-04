@@ -27,10 +27,8 @@ final class ForecastViewModel: BaseViewModel {
   }
 
   var forecastImageURL: String {
-    get {
       guard let idImage = self.forecast?.idImage, idImage.isNotEmpty else { return "" }
       return idImage
-    }
   }
 
   var weatherDescription: String {

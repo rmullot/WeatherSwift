@@ -22,8 +22,18 @@
 
 "yesTitle" = "Yes";
 
+"Clouds" = "clouds";
+
+"Humidity" = "humidity";
+
 "Pressure" = "Atmospheric pressure";
 
 "Rain" = "rain";
 
 "SnowRisk" = "snow risk";
+
+"Weather" = "Weather";
+
+"HotWeather" = "It's hot!";
+
+"ColdWeather" = "It's cold!";

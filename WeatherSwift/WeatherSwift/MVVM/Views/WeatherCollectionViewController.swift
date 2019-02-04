@@ -8,6 +8,7 @@
 
 import UIKit
 import WeatherUI
+import WeatherCore
 
 final class WeatherCollectionViewController: BaseViewController<WeatherInfoViewModel>, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -18,7 +19,7 @@ final class WeatherCollectionViewController: BaseViewController<WeatherInfoViewM
   override func viewDidLoad() {
     super.viewDidLoad()
     self.collectionView.accessibilityIdentifier = UITestingIdentifiers.weatherCollectionViewController.rawValue
-    self.title = "WEATHER"
+    self.title = L10n.weather
     self.collectionView.registerReusableCell(ForecastInfoCell.self)
     self.viewModel = WeatherInfoViewModel()
     collectionView.refreshControl = refreshControl

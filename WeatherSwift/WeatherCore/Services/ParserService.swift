@@ -32,7 +32,7 @@ public final class ParserService<T>: ParserServiceProtocol where T: Decodable {
   private init() { }
 
   public static func parse(_ json: Data, completionHandler: @escaping ParserCallback<T>) {
-        print(String(data: json, encoding: .utf8) ?? "")
+//        print(String(data: json, encoding: .utf8) ?? "")
     do {
       let decodedObject = try JSONDecoder().decode(T.self, from: json)
       completionHandler(ParserResult.success(decodedObject))
