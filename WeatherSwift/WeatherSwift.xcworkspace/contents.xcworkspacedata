@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/romain/Portfolio/WeatherSwift/WeatherSwift/WeatherCore/Models/Fetchable/Forecast+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/romain/Portfolio/WeatherSwift/WeatherSwift/WeatherCore/Models/Fetchable/Forecast+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
       location = "group:WeatherSwift.xcodeproj">
    </FileRef>
    <FileRef
