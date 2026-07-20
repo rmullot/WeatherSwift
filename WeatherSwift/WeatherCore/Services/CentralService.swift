@@ -23,7 +23,7 @@ public final class CentralService: CentralServiceProtocol {
 
   public func register<T>( _ factory: T) {
     let key = String(describing: T.self)
-    print(key)
+    print("registered \(key)")
     registrations[key] = Registration<T>(factory: factory)
   }
 

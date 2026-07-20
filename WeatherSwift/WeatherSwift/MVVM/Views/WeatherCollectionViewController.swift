@@ -37,7 +37,7 @@ final class WeatherCollectionViewController: BaseViewController<WeatherInfoViewM
 
   // MARK: - UICollectionViewDataSource
 
-  public func numberOfSections (in collectionView: UICollectionView) -> Int {
+  public func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
 

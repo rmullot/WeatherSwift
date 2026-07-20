@@ -59,7 +59,7 @@ public final class CoreDataService: Any {
 
   // MARK: - Core Data Saving support
 
-  public func saveContext () {
+  public func saveContext() {
     let context = persistentContainer.viewContext
     if context.hasChanges {
       do {

@@ -42,7 +42,7 @@ public final class FormatterService: FormatterServiceProtocol {
     cachedFormatters = cachedFormatters.filter { key, value in
       return !(value is DateFormatter && key != parserKey)
     }
-    print(cachedFormatters)
+    print("cleaned cache:\(cachedFormatters)")
   }
 
   // MARK: Getting formatters

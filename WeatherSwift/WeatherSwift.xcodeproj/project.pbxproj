@@ -160,6 +160,9 @@
 
 /* Begin PBXFileReference section */
 		025F7F3D300E36F200B45C42 /* Forecast+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Forecast+CoreDataClass.swift"; sourceTree = "<group>"; };
+		025F7F44300E674C00B45C42 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		025F7F45300E675A00B45C42 /* .swiftlint.auto.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.auto.yml; sourceTree = SOURCE_ROOT; };
+		025F7F47300E6AAE00B45C42 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = SOURCE_ROOT; };
 		7A0CA58321F771BB001CB2DD /* UITestKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestKey.swift; sourceTree = "<group>"; };
 		7A0CA58721F7738C001CB2DD /* BridgeForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgeForecastService.swift; sourceTree = "<group>"; };
 		7A0CA58E21F7757C001CB2DD /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
@@ -298,6 +301,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		025F7F43300E673900B45C42 /* SwiftLint */ = {
+			isa = PBXGroup;
+			children = (
+				025F7F45300E675A00B45C42 /* .swiftlint.auto.yml */,
+				025F7F44300E674C00B45C42 /* .swiftlint.yml */,
+			);
+			path = SwiftLint;
+			sourceTree = "<group>";
+		};
+		025F7F46300E6A9100B45C42 /* SwiftGen */ = {
+			isa = PBXGroup;
+			children = (
+				025F7F47300E6AAE00B45C42 /* swiftgen.yml */,
+			);
+			path = SwiftGen;
+			sourceTree = "<group>";
+		};
 		7A0CA59721F77954001CB2DD /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +420,8 @@
 		7AC9D03421F721A60073F6EE = {
 			isa = PBXGroup;
 			children = (
+				025F7F46300E6A9100B45C42 /* SwiftGen */,
+				025F7F43300E673900B45C42 /* SwiftLint */,
 				7AC9D03F21F721A60073F6EE /* WeatherSwift */,
 				7AC9D05721F721A60073F6EE /* WeatherSwiftTests */,
 				7AC9D06221F721A60073F6EE /* WeatherSwiftUITests */,
@@ -813,6 +835,7 @@
 				0263E6517F60A7A865D96568 /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 				7CBA35AF9C7713E7F175DC65 /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 				025F7F3F300E58B300B45C42 /* XCRemoteSwiftPackageReference "FTLinearActivityIndicator" */,
+				025F7F42300E630A00B45C42 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = 7AC9D03E21F721A60073F6EE /* Products */;
 			projectDirPath = "";
@@ -903,10 +926,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/swiftlint.stamp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the SwiftPM-vendored SwiftLint (from BuildTools) using the macOS toolchain,\n# clearing the iOS build environment Xcode injects into script phases.\nunset SDKROOT PLATFORM_NAME SUPPORTED_PLATFORMS\nexport SDKROOT=\"$(xcrun --sdk macosx --show-sdk-path)\"\nTOOLS=\"${SRCROOT}/BuildTools\"\nBIN=\"${TOOLS}/.build/release/swiftlint\"\nif [ ! -x \"$BIN\" ]; then ( cd \"$TOOLS\" && xcrun --sdk macosx swift build -c release --product swiftlint ); fi\ncd \"${SRCROOT}\"\n\"$BIN\" --fix --config \"${SRCROOT}/.swiftlint.auto.yml\"\n\"$BIN\" --config \"${SRCROOT}/.swiftlint.yml\"\n";
+			shellScript = "# Run the SwiftPM-vendored SwiftLint (from BuildTools) using the macOS toolchain,\n# clearing the iOS build environment Xcode injects into script phases.\nunset SDKROOT PLATFORM_NAME SUPPORTED_PLATFORMS\nexport SDKROOT=\"$(xcrun --sdk macosx --show-sdk-path)\"\nTOOLS=\"${SRCROOT}/BuildTools\"\nBIN=\"${TOOLS}/.build/release/swiftlint\"\nif [ ! -x \"$BIN\" ]; then ( cd \"$TOOLS\" && xcrun --sdk macosx swift build -c release --product swiftlint ); fi\ncd \"${SRCROOT}\"\n\"$BIN\" --fix --config \"${SRCROOT}/.swiftlint.auto.yml\"\n\"$BIN\" --config \"${SRCROOT}/.swiftlint.yml\"\n# Useful for Mac Mx if swiftLint is installed with HomeBrew\nif test -d \"/opt/homebrew/bin/\"; then\n  PATH=\"/opt/homebrew/bin/:${PATH}\"\nfi\n\nexport PATH\n\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n\n# Write a stamp file so Xcode recognizes an output and won't warn\nSTAMP_FILE=\"${DERIVED_FILE_DIR}/swiftlint.stamp\"\nmkdir -p \"$(dirname \"$STAMP_FILE\")\"\ndate > \"$STAMP_FILE\"\n";
 		};
 		7AC9D0E921F747270073F6EE /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -921,10 +945,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/swiftgen.stamp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the SwiftPM-vendored SwiftGen (from BuildTools) using the macOS toolchain.\nunset SDKROOT PLATFORM_NAME SUPPORTED_PLATFORMS\nexport SDKROOT=\"$(xcrun --sdk macosx --show-sdk-path)\"\nTOOLS=\"${SRCROOT}/BuildTools\"\nBIN=\"${TOOLS}/.build/release/swiftgen\"\nif [ ! -x \"$BIN\" ]; then ( cd \"$TOOLS\" && xcrun --sdk macosx swift build -c release --product swiftgen ); fi\ncd \"${SRCROOT}\"\n\"$BIN\" config run --config \"${SRCROOT}/swiftgen.yml\"\n";
+			shellScript = "# Run the SwiftPM-vendored SwiftGen (from BuildTools) using the macOS toolchain.\nunset SDKROOT PLATFORM_NAME SUPPORTED_PLATFORMS\nexport SDKROOT=\"$(xcrun --sdk macosx --show-sdk-path)\"\nTOOLS=\"${SRCROOT}/BuildTools\"\nBIN=\"${TOOLS}/.build/release/swiftgen\"\nif [ ! -x \"$BIN\" ]; then ( cd \"$TOOLS\" && xcrun --sdk macosx swift build -c release --product swiftgen ); fi\ncd \"${SRCROOT}\"\n\n# Write a stamp file so Xcode recognizes an output and won't warn\nSTAMP_FILE=\"${DERIVED_FILE_DIR}/swiftgen.stamp\"\nmkdir -p \"$(dirname \"$STAMP_FILE\")\"\ndate > \"$STAMP_FILE\"\n\"$BIN\" config run --config \"${SRCROOT}/swiftgen.yml\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1608,6 +1633,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.0.2;
+			};
+		};
+		025F7F42300E630A00B45C42 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.65.0;
 			};
 		};
 		0263E6517F60A7A865D96568 /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
