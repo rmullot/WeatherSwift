@@ -19,8 +19,8 @@ class DescriptionViewModelTest: MockEnvironmentTest {
     let forecast = Forecast(context: managedObjectContext)
     forecast.rain = 50.5
     forecast.pressure = 10444
-    forecast.snowRisk = "yes"
-    forecast.date = NSDate()
+    forecast.snow = 1.0
+    forecast.date = NSDate().timeIntervalSince1970
     viewModelValid = DescriptionViewModel(forecast: forecast)
   }
 
@@ -33,11 +33,11 @@ class DescriptionViewModelTest: MockEnvironmentTest {
   }
 
   func test_pressure_description_Valid() {
-    XCTAssertEqual(viewModelValid.pressure, "\(L10n.pressure): 10444")
+    XCTAssertEqual(viewModelValid.pressure, "\(L10n.pressure): 10444.0")
   }
 
   func test_snowRisk_description_Valid() {
-    XCTAssertEqual(viewModelValid.snowRisk, "\(L10n.snowRisk): yes")
+    XCTAssertEqual(viewModelValid.snowRisk, "\(L10n.snowRisk): 1.0")
   }
 
 }

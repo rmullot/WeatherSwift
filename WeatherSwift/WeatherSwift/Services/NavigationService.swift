@@ -21,7 +21,13 @@ public final class NavigationService: NavigationServiceProtocol {
   static let sharedInstance = NavigationService()
 
   private var navigationController: UINavigationController {
-    guard let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController else {
+     let keyWindow = UIApplication
+          .shared
+          .connectedScenes
+          .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
+          .last { $0.isKeyWindow }
+
+      guard let navigationController = keyWindow?.rootViewController as? UINavigationController else {
       fatalError()
     }
     return navigationController
@@ -30,7 +36,7 @@ public final class NavigationService: NavigationServiceProtocol {
   // MARK: - Methods
 
   public func navigateToDescription(forecast: Forecast) {
-    guard navigationController.visibleViewController is WeatherTableViewController  else { return }
+    guard navigationController.visibleViewController is WeatherCollectionViewController  else { return }
     let descriptionViewController = DescriptionViewController.initFromNib()
     descriptionViewController.viewModel = DescriptionViewModel(forecast: forecast)
     navigationController.pushViewController(descriptionViewController, animated: true)

@@ -59,7 +59,7 @@ public final class CoreDataService: Any {
 
   // MARK: - Core Data Saving support
 
-  public func saveContext () {
+  public func saveContext() {
     let context = persistentContainer.viewContext
     if context.hasChanges {
       do {
@@ -68,7 +68,10 @@ public final class CoreDataService: Any {
         // Replace this implementation with code to handle the error appropriately.
         // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nserror = error as NSError
-        ErrorService.sharedInstance.showErrorMessage(message: "Unresolved error \(nserror), \(nserror.userInfo)")
+          Task { @MainActor in
+              ErrorService.sharedInstance.showErrorMessage(message: "Unresolved error \(nserror), \(nserror.userInfo)")
+          }
+
       }
     }
   }
@@ -89,16 +92,18 @@ public final class CoreDataService: Any {
     if errorMessage.isEmpty {
       self.saveContext()
     } else {
-      ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
+        Task { @MainActor in
+          ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
+        }
     }
   }
 
   private func convertForecast(_ forecast: ForecastStruct, completionHandler: CoreDataCallback? = nil) {
     var resultObject: Forecast?
 
-    //check if object exists already or create new one
+    // check if object exists already or create new one
 
-    let predicate = NSPredicate(format: "date == %@", forecast.date.toParsedDate())
+    let predicate = NSPredicate(format: "date == %lf", forecast.date)
     var objects: [Forecast] = [Forecast]()
 
     do {
@@ -114,20 +119,24 @@ public final class CoreDataService: Any {
     }
 
     // check object already in cache
-    resultObject = objects.count == 1 ? objects[0] : NSEntityDescription.insertNewObject(forEntityName: Forecast.entityName, into: persistentContainer.viewContext) as! Forecast
+    resultObject = objects.count == 1 ? objects[0] : NSEntityDescription.insertNewObject(forEntityName: String(describing: Forecast.self), into: persistentContainer.viewContext) as! Forecast
 
-    resultObject?.date = forecast.date.toParsedDate()
-    resultObject?.temperature = forecast.temperature
+    resultObject?.date = forecast.date
+    resultObject?.clouds = forecast.clouds ?? -1
     resultObject?.pressure = forecast.pressure
-    resultObject?.snowRisk = forecast.snowRisk
-    resultObject?.temperature = forecast.temperature
-    resultObject?.rain = forecast.rain
+    resultObject?.snow = forecast.snow ?? -1
+    resultObject?.speed = forecast.speed ?? -1
+    resultObject?.temperature = Double(forecast.temperature?.day ?? Float.greatestFiniteMagnitude)
+    resultObject?.rain = forecast.rain ?? -1
+    resultObject?.informations = forecast.informations
+    resultObject?.idImage = forecast.idImage
+    resultObject?.humidity = Int16(forecast.humidity ?? -1)
     completionHandler?(CoreDataResult.success(resultObject))
   }
 
   public func clearData() {
     do {
-      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Forecast.entityName)
+      let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Forecast.self))
       do {
         let objects  = try self.persistentContainer.viewContext.fetch(fetchRequest) as? [NSManagedObject]
         objects?.forEach { self.persistentContainer.viewContext.delete($0) }

@@ -2,8 +2,8 @@
 //  Weather+Fetchable.swift
 //  WeatherSwift
 //
-//  Created by Romain Mullot on 16/11/2018.
-//  Copyright © 2018 Romain Mullot. All rights reserved.
+//  Created by Romain Mullot on 02/02/2019.
+//  Copyright © 2019 Romain Mullot. All rights reserved.
 //
 
 import Foundation

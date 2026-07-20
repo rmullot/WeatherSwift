@@ -22,8 +22,18 @@
 
 "yesTitle" = "Oui";
 
+"Clouds" = "nuages";
+
+"Humidity" = "humidité";
+
 "Pressure" = "pression atmosphérique";
 
 "Rain" = "pluie";
 
 "SnowRisk" = "risque de neige";
+
+"Weather" = "Météo";
+
+"HotWeather" = "Il fait chaud!";
+
+"ColdWeather" = "Il fait froid!";

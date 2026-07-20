@@ -19,12 +19,12 @@ class ForecastViewModelTest: MockEnvironmentTest {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let forecast = Forecast(context: managedObjectContext)
         forecast.temperature = 300
-        forecast.date = NSDate()
+        forecast.date = NSDate().timeIntervalSince1970
         viewModelValid = ForecastViewModel(forecast: forecast)
 
         let forecastInvalid = Forecast(context: managedObjectContext)
         forecastInvalid.temperature = 263.15
-        forecastInvalid.date = NSDate(timeIntervalSince1970: 1030300)
+        forecastInvalid.date = 1030300
         viewModelInvalid = ForecastViewModel(forecast: forecastInvalid)
     }
 

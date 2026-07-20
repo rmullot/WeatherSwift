@@ -10,22 +10,19 @@ import UIKit
 import CoreData
 import WeatherCore
 import WeatherUI
+import FTLinearActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  var window: UIWindow?
-  var navigationController: UINavigationController!
-
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
-    window = UIWindow(frame: UIScreen.main.bounds)
-    let searchViewController = WeatherTableViewController.initFromNib()
-    navigationController = UINavigationController(rootViewController: searchViewController)
-    window!.rootViewController = navigationController
-    window!.makeKeyAndVisible()
     configServices()
     return true
+  }
+
+  func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
+    UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
   }
 
   private func configServices() {
