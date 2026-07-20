@@ -103,7 +103,7 @@ public final class CoreDataService: Any {
 
     // check if object exists already or create new one
 
-    let predicate = NSPredicate(format: "date == %@", forecast.date)
+    let predicate = NSPredicate(format: "date == %lf", forecast.date)
     var objects: [Forecast] = [Forecast]()
 
     do {
