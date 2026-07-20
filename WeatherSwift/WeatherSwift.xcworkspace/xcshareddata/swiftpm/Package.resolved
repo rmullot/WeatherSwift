@@ -1,5 +1,5 @@
 {
-  "originHash" : "fb4874c8cd5efd74ffee6ea524caf2e196d5c9753a11391485e9c06b7e0549a4",
+  "originHash" : "560ced470b209bbf4f643800b2ecb9817cdbc439fe9382f5906f3e84ded68879",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "4cf73d601c482b7d77bae47de3ef1b8bcf328ec1",
         "version" : "4.4.0"
+      }
+    },
+    {
+      "identity" : "ftlinearactivityindicator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/futuretap/FTLinearActivityIndicator.git",
+      "state" : {
+        "revision" : "52764c13cbceca291eae9f01c8dd612bb7369b71",
+        "version" : "2.0.2"
       }
     },
     {
