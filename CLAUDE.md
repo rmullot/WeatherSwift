@@ -4,18 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-WeatherSwift is an iOS weather app (Swift, UIKit, iOS 15+) that fetches GFS forecasts from the infoclimat.fr public API, caches them in Core Data, and displays them in a table with a detail view. Dependencies are managed with **Swift Package Manager** (migrated off CocoaPods). The repo root is `WeatherSwift/` (the Xcode project lives one level below the git root, in `WeatherSwift/WeatherSwift/`).
+WeatherSwift is an iOS weather app (Swift, UIKit, iOS 15+) that fetches GFS forecasts from the infoclimat.fr public API, caches them in Core Data, and displays them in a table with a detail view. Dependencies are managed with **Swift Package Manager**. The repo root is `WeatherSwift/` (the Xcode project lives one level below the git root, in `WeatherSwift/WeatherSwift/`).
 
 ## Commands
 
 All commands run from `WeatherSwift/` (the directory containing `WeatherSwift.xcodeproj`).
 
 - No dependency install step: SPM packages resolve automatically when the project opens (`xcodebuild -resolvePackageDependencies` to force).
-- Open/build the `.xcodeproj` (or the `.xcworkspace`, which now only wraps the same project). No `pod install`.
+- Open/build the `.xcodeproj` directly (an `.xcworkspace` also exists but only wraps the same project — either works).
 - Build: `xcodebuild -project WeatherSwift.xcodeproj -scheme WeatherSwift -sdk iphonesimulator build`
 - Run all tests: `xcodebuild -project WeatherSwift.xcodeproj -scheme WeatherSwift -destination 'platform=iOS Simulator,name=iPhone 17 Pro' test`
 - Run a single test: append `-only-testing:WeatherSwiftTests/ForecastViewModelTest/testName` to the test command (replace bundle/class/method as needed).
-- Lint: SwiftLint runs automatically as an Xcode build phase. Config is `.swiftlint.yml` (disabled: `line_length`, `force_cast`; opt-in: `empty_count`; `Pods`, `BuildTools`, `WeatherCore/Generated` excluded).
+- Lint: SwiftLint runs automatically as an Xcode build phase, in two passes: `--fix` with `.swiftlint.auto.yml` (an `only_rules` allowlist of safe autocorrects — whitespace, colon, comma, mark, void_return, opening_brace) followed by a check with `.swiftlint.yml` (disabled: `line_length`, `force_cast`, `notification_center_detachment`; opt-in: `empty_count`; both exclude `Pods`, `BuildTools`, `WeatherCore/Generated`).
+- The project resolves an unused `SwiftLintPlugins` remote package reference (leftover from an earlier approach); it is not attached as a build tool plugin to any target — SwiftLint runs only via the `BuildTools` binary as described above. Safe to ignore.
 
 ## Dependencies (Swift Package Manager)
 
@@ -32,7 +33,7 @@ Three build targets separate reusable logic from UI:
 
 - **WeatherCore** (dynamic framework): all networking, parsing, persistence, and domain services. Contains no view code. Public API is exposed via `public` symbols consumed by the app and WeatherUI. Links Reachability + SwiftMessages.
 - **WeatherUI** (dynamic framework): reusable UI extensions/view models; `import WeatherCore` and depends on it (explicit target dependency — required so `WeatherCore-Swift.h` is generated before WeatherUI compiles). Links AlamofireImage + Alamofire.
-- **WeatherSwift** (app): MVVM presentation layer under `WeatherSwift/MVVM/` (`Views/` + `ViewModels/`), plus a `NavigationService`. UI is storyboard-driven (`Main.storyboard`).
+- **WeatherSwift** (app): MVVM presentation layer under `WeatherSwift/MVVM/` (`Views/` + `ViewModels/`), plus a `NavigationService`. There is no `Main.storyboard`; the root view controller (`WeatherCollectionViewController`, loaded from a nib) is built and installed on the window programmatically in `SceneDelegate.scene(_:willConnectTo:options:)`. `AppDelegate` only registers services (`configServices()`) and vends the scene configuration — window/UI setup lives in `SceneDelegate`, and `applicationWillTerminate` still calls `CoreDataService.sharedInstance.saveContext()`.
 
 ### Data flow
 
@@ -49,12 +50,8 @@ The model is `WeatherSwift.xcdatamodeld`. `Forecast` is the managed object (`For
 
 ### Networking utilities
 
-`WeatherCore/Network/` holds connectivity plumbing: `ReachabilityService` (via ReachabilitySwift pod) toggles online/offline behavior, `NetworkActivityService`, a `MultiCastDelegate`, and a mutex-based counter (`MutexCounter` / third-party `CwlMutex`).
+`WeatherCore/Network/` holds connectivity plumbing: `ReachabilityService` (via the Reachability SPM package) toggles online/offline behavior, `NetworkActivityService`, a `MultiCastDelegate`, and a mutex-based counter (`MutexCounter` / third-party `CwlMutex`).
 
 ### UI testing hook
 
 The app checks launch arguments/environment (see `UITestKey.swift`) so UI tests can force offline/mock behavior. When adding UI-test-controllable behavior, wire it through this key rather than ad-hoc flags.
-
-## Dependencies (CocoaPods)
-
-SwiftLint, SwiftGen, SwiftMessages (in-app banners/alerts), ReachabilitySwift. Both `WeatherSwift` and `WeatherCore` targets link ReachabilitySwift + SwiftMessages.
