@@ -106,9 +106,8 @@ public final class ReachabilityService {
 
     if reachability.connection != .unavailable {
       // handle slow / fast mode here
-      // TODO: - serviceCurrentRadioAccessTechnology for iOS 12  return always nil. To Investigate
-      // Nothing found on Apple documentation, Apple Forum and stackoverflow
-      if let currentRadioAccessTechnology = telephonyInfo.currentRadioAccessTechnology {
+      if let infos = CTTelephonyNetworkInfo().serviceCurrentRadioAccessTechnology,
+        let currentRadioAccessTechnology = infos.values.first {
         switch currentRadioAccessTechnology {
         case CTRadioAccessTechnologyEdge, CTRadioAccessTechnologyCDMA1x,
              CTRadioAccessTechnologyGPRS:
