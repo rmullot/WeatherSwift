@@ -37,8 +37,8 @@ public final class WebServiceService: WebServiceServiceProtocol {
     PermissionService.sharedInstance.requestLocationPermission({ (permissionStatus) in
 
       switch permissionStatus {
-      case .granted :
-        PermissionService.sharedInstance.locationUpdatedCompletionHandler = { (permissionStatus, coordinates) in
+      case .granted:
+        PermissionService.sharedInstance.locationUpdatedCompletionHandler = { (_, coordinates) in
           self.urlForecast = String(format: self.uri, coordinates.x, coordinates.y, self.apiKey)
           self.launchForecastRequest(completionHandler: { (result) in
             completionHandler(result)
@@ -46,7 +46,7 @@ public final class WebServiceService: WebServiceServiceProtocol {
         }
         PermissionService.sharedInstance.startLocalisation()
 
-      default :
+      default:
         self.launchForecastRequest(completionHandler: { (result) in
           completionHandler(result)
         })
@@ -76,7 +76,9 @@ public final class WebServiceService: WebServiceServiceProtocol {
         })
 
       case .error(let message):
-        ErrorService.sharedInstance.showErrorMessage(message: message)
+        Task { @MainActor in
+          ErrorService.sharedInstance.showErrorMessage(message: message)
+        }
         completionHandler(.error(message))
       }
     })
@@ -93,7 +95,6 @@ public final class WebServiceService: WebServiceServiceProtocol {
       for task in downloadTask {
         task.cancel()
       }
-      NetworkActivityService.sharedInstance.disableActivityIndicator()
     }
   }
 
@@ -101,10 +102,8 @@ public final class WebServiceService: WebServiceServiceProtocol {
     guard let url = URL(string: urlString) else {
       return completion(.error("Invalid URL, we can't update your feed")) }
 
-    NetworkActivityService.sharedInstance.newRequestStarted()
     URLSession.shared.dataTask(with: url) { (data, _, error) in
       DispatchQueue.main.async {
-        NetworkActivityService.sharedInstance.requestFinished()
         guard error == nil else {
           return completion(.error(error!.localizedDescription)) }
         guard let data = data else { return completion(.error(error?.localizedDescription ?? "There are no new Items to show")) }
@@ -121,7 +120,7 @@ public final class WebServiceService: WebServiceServiceProtocol {
     ReachabilityService.sharedInstance.delegates.remove(self)
   }
 
-  private func displayNetworkStatus() {
+    @MainActor private func displayNetworkStatus() {
     let view = MessageView.viewFromNib(layout: .cardView)
     switch onlineMode {
     case .offline:
@@ -147,7 +146,7 @@ public final class WebServiceService: WebServiceServiceProtocol {
 // MARK: - ReachabilityManagerDelegate
 extension WebServiceService: ReachabilityServiceDelegate {
 
-  public func onlineModeChanged(_ newMode: OnlineMode) {
+    @MainActor public func onlineModeChanged(_ newMode: OnlineMode) {
     if onlineMode != newMode {
       onlineMode = newMode
       displayNetworkStatus()

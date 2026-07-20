@@ -21,7 +21,7 @@ open class BaseViewController<T: BaseViewModel>: UIViewController {
   // MARK: - Initialization & Memory Management
 
   deinit {
-    print("\(self)")
+    print("deinit \(self)")
   }
 
   override open func viewWillAppear(_ animated: Bool) {

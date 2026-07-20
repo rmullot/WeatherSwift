@@ -24,7 +24,7 @@ final class WeatherCollectionViewController: BaseViewController<WeatherInfoViewM
     self.viewModel = WeatherInfoViewModel()
     collectionView.refreshControl = refreshControl
     refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
-    self.viewModel.forecastsDidChange = { [weak self] viewModel in
+    self.viewModel.forecastsDidChange = { [weak self] _ in
       self?.refreshControl.endRefreshing()
       self?.collectionView.reloadData()
     }
@@ -37,7 +37,7 @@ final class WeatherCollectionViewController: BaseViewController<WeatherInfoViewM
 
   // MARK: - UICollectionViewDataSource
 
-  public func numberOfSections (in collectionView: UICollectionView) -> Int {
+  public func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
 

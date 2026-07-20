@@ -10,7 +10,7 @@ import Foundation
 import SwiftMessages
 
 public protocol ErrorServiceProtocol {
-  func showErrorMessage(message: String)
+  @MainActor func showErrorMessage(message: String)
 }
 
 public final class ErrorService: ErrorServiceProtocol {
@@ -19,7 +19,7 @@ public final class ErrorService: ErrorServiceProtocol {
 
   private let marginMessageBox: CGFloat = 20
 
-  public func showErrorMessage(message: String) {
+    @MainActor public func showErrorMessage(message: String) {
     let view = MessageView.viewFromNib(layout: .cardView)
     view.configureTheme(.error)
     view.configureContent(title: L10n.errorTitle, body: message)

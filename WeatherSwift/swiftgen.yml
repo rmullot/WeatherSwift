@@ -2,5 +2,7 @@ strings:
   inputs:
   - WeatherCore/Resources/en.lproj/Localizable.strings
   outputs:
-    templateName: structured-swift4
+    templateName: structured-swift5
+    params:
+      publicAccess: true
     output: WeatherCore/Generated/Strings.swift

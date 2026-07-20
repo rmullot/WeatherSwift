@@ -17,9 +17,7 @@ extension UIImageView {
     urlString.isUrl({ (success, url) in
       guard success, let url = url else { return }
       let filter = AspectScaledToFillSizeFilter( size: self.frame.size )
-      NetworkActivityService.sharedInstance.newRequestStarted()
-      self.af_setImage(withURL: url, placeholderImage: placeHolder, filter: filter, imageTransition: .crossDissolve(0.2), runImageTransitionIfCached: true) { _ in
-        NetworkActivityService.sharedInstance.requestFinished()
+      self.af.setImage(withURL: url, placeholderImage: placeHolder, filter: filter, imageTransition: .crossDissolve(0.2), runImageTransitionIfCached: true) { _ in
       }
     })
   }

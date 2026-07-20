@@ -13,12 +13,8 @@ public typealias PermissionCompletionHandler = (_ status: LocationStatus) -> Voi
 public typealias LocationUpdatedCompletionHandler = (_ status: LocationStatus, _ coordinates: CGPoint) -> Void
 
 public protocol PermissionServiceProtocol {
-
-  var permissionStatus: LocationStatus { get }
-
   func requestLocationPermission(_ completionHandler: ((_ status: LocationStatus) -> Void)?)
   func startLocalisation()
-
 }
 
 public class PermissionService: NSObject, PermissionServiceProtocol {
@@ -33,38 +29,42 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
 
   // MARK: - Location
 
-  public var permissionStatus: LocationStatus {
-    return getPermisionStatus()
-  }
-
   public func requestLocationPermission(_ completionHandler: PermissionCompletionHandler? = nil) {
-    let status = getPermisionStatus()
-    guard status == .unknown else {
-      completionHandler?(status)
-      return
-    }
-    permissionCompletionHandler = completionHandler
-    self.locationManager.requestWhenInUseAuthorization()
+    getPermissionStatus { status in
+        guard status == .unknown else {
+          completionHandler?(status)
+          return
+        }
+        self.permissionCompletionHandler = completionHandler
+        self.locationManager.requestWhenInUseAuthorization()
+      }
   }
 
   public func startLocalisation() {
     locationManager.startUpdatingLocation()
   }
 
-  private func getPermisionStatus() -> LocationStatus {
-    guard CLLocationManager.locationServicesEnabled() else { return .disabled }
+    private func getPermissionStatus(_ completionHandler: PermissionCompletionHandler? = nil) {
+      let permissionQueue = DispatchQueue(label: "permissionStatusQueue")
+      permissionQueue.async {
+        if CLLocationManager.locationServicesEnabled() {
+            let manager = CLLocationManager()
+            let status = manager.authorizationStatus
+            switch status {
+            case .authorizedAlways, .authorizedWhenInUse:
+                completionHandler?(.granted)
+            case .denied:
+                completionHandler?(.denied)
+            case .restricted:
+                completionHandler?(.restricted)
+            default:
+                completionHandler?(.unknown)
+            }
+        } else {
+            completionHandler?(.disabled)
+        }
+      }
 
-    let status = CLLocationManager.authorizationStatus()
-    switch status {
-    case .authorizedAlways, .authorizedWhenInUse:
-      return .granted
-    case .denied:
-      return .denied
-    case .restricted:
-      return .restricted
-    default:
-      return .unknown
-    }
   }
 
   private override init() {
@@ -78,9 +78,10 @@ extension PermissionService: CLLocationManagerDelegate {
 
   public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
     guard status != .notDetermined else { return }
-
-    permissionCompletionHandler?(getPermisionStatus())
-    permissionCompletionHandler = nil
+      getPermissionStatus { status in
+          self.permissionCompletionHandler?(status)
+          self.permissionCompletionHandler = nil
+      }
   }
 
   public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
