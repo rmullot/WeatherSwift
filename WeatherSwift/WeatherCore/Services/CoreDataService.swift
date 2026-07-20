@@ -68,7 +68,10 @@ public final class CoreDataService: Any {
         // Replace this implementation with code to handle the error appropriately.
         // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         let nserror = error as NSError
-        ErrorService.sharedInstance.showErrorMessage(message: "Unresolved error \(nserror), \(nserror.userInfo)")
+          Task { @MainActor in
+              ErrorService.sharedInstance.showErrorMessage(message: "Unresolved error \(nserror), \(nserror.userInfo)")
+          }
+
       }
     }
   }
@@ -89,14 +92,16 @@ public final class CoreDataService: Any {
     if errorMessage.isEmpty {
       self.saveContext()
     } else {
-      ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
+        Task { @MainActor in
+          ErrorService.sharedInstance.showErrorMessage(message: errorMessage)
+        }
     }
   }
 
   private func convertForecast(_ forecast: ForecastStruct, completionHandler: CoreDataCallback? = nil) {
     var resultObject: Forecast?
 
-    //check if object exists already or create new one
+    // check if object exists already or create new one
 
     let predicate = NSPredicate(format: "date == %@", forecast.date)
     var objects: [Forecast] = [Forecast]()

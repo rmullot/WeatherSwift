@@ -23,7 +23,7 @@ public final class BridgeForecastService: BridgeForecastServiceProtocol {
       try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
 
       if WebServiceService.sharedInstance.onlineMode != .offline {
-        BridgeForecastService.callWebservice(completionHandler: { () -> Void in
+        BridgeForecastService.callWebservice(completionHandler: { () in
           do {
             try forecasts = Forecast.objectsInContext(CoreDataService.sharedInstance.persistentContainer.viewContext, predicate: nil, sortedBy: sortParameters)
             completionHandler(forecasts)

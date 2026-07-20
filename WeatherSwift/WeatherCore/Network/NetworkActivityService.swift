@@ -26,11 +26,13 @@ public final class NetworkActivityService: NetworkActivityServiceProtocol {
 
   public var countRequest: MutexCounter = MutexCounter()
 
-  private let maxActivityDuration: Double = 120 //in seconds
+  private let maxActivityDuration: Double = 120 // in seconds
 
   private var disableActivityIndicatorClosure: DispatchQueue.CancellableClosure
 
-  private init() {}
+  private init() {
+      disableActivityIndicatorClosure = {}
+  }
 
   @discardableResult
   public func newRequestStarted() -> Int {

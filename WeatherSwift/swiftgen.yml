@@ -3,4 +3,6 @@ strings:
   - WeatherCore/Resources/en.lproj/Localizable.strings
   outputs:
     templateName: structured-swift4
+    params:
+      publicAccess: true
     output: WeatherCore/Generated/Strings.swift

@@ -23,7 +23,7 @@ public enum OnlineMode: Int {
 
 public protocol ReachabilityServiceDelegate: class {
   var onlineMode: OnlineMode {get}
-  func onlineModeChanged(_ onlineMode: OnlineMode)
+  @MainActor func onlineModeChanged(_ onlineMode: OnlineMode)
 }
 
 // MARK: - ReachabilityService
@@ -46,7 +46,9 @@ public final class ReachabilityService {
     set {
       _onlineMode = newValue
       self.delegates.invoke { (delegate) in
-        delegate.onlineModeChanged(_onlineMode)
+          Task { @MainActor in
+              delegate.onlineModeChanged(_onlineMode)
+          }
       }
     }
 
@@ -55,29 +57,28 @@ public final class ReachabilityService {
     }
   }
 
-  private let changeOperatingModeDelay: Double = 2.0 //in seconds
+  private let changeOperatingModeDelay: Double = 2.0 // in seconds
 
   private var changeOperatinModeClosure: DispatchQueue.CancellableClosure?
 
   private init() {
-    self.delegates = MulticastDelegate<ReachabilityServiceDelegate>.init(addClosure: {delegate in
-      delegate.onlineModeChanged(self.onlineMode)
+    self.delegates = MulticastDelegate<ReachabilityServiceDelegate>.init(addClosure: { delegate in
+        Task { @MainActor in
+            delegate.onlineModeChanged(self._onlineMode)
+        }
     })
     self.onlineMode = .online
-    reachability = Reachability()
-    if reachability != nil {
-      do {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ReachabilityService.reachabilityChanged(_:)),
-                                               name: Notification.Name.reachabilityChanged,
-                                               object: reachability)
-
-        try reachability?.startNotifier()
-      } catch let error {
-        print("Unable to start Reachability! Error: \(error)")
-      }
-    } else {
-      print("Unable to create Reachability!")
+    // Reachability 5.x: the initializer is throwing (no non-throwing `Reachability()`).
+    do {
+      let reachability = try Reachability()
+      self.reachability = reachability
+      NotificationCenter.default.addObserver(self,
+                                             selector: #selector(ReachabilityService.reachabilityChanged(_:)),
+                                             name: Notification.Name.reachabilityChanged,
+                                             object: reachability)
+      try reachability.startNotifier()
+    } catch let error {
+      print("Unable to create/start Reachability! Error: \(error)")
     }
 
     NotificationCenter.default.addObserver(self,
@@ -103,18 +104,18 @@ public final class ReachabilityService {
       return
     }
 
-    if reachability.connection != .none {
-      //handle slow / fast mode here
+    if reachability.connection != .unavailable {
+      // handle slow / fast mode here
       // TODO: - serviceCurrentRadioAccessTechnology for iOS 12  return always nil. To Investigate
       // Nothing found on Apple documentation, Apple Forum and stackoverflow
       if let currentRadioAccessTechnology = telephonyInfo.currentRadioAccessTechnology {
         switch currentRadioAccessTechnology {
         case CTRadioAccessTechnologyEdge, CTRadioAccessTechnologyCDMA1x,
              CTRadioAccessTechnologyGPRS:
-          //slow mode
+          // slow mode
           changeOnlineMode(.onlineSlow)
         default:
-          //fast mode
+          // fast mode
           changeOnlineMode(.online)
         }
       } else {

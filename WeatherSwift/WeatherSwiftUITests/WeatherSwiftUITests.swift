@@ -46,7 +46,7 @@ class SignInViewModelUITests: XCTestCase {
       let collectionView = app.collectionViews[UITestingIdentifiers.weatherCollectionViewController.rawValue]
 
       let exists = NSPredicate(format: "self.count > 0")
-      expectation (for: exists, evaluatedWith: collectionView.cells, handler: nil)
+      expectation(for: exists, evaluatedWith: collectionView.cells, handler: nil)
       waitForExpectations(timeout: 5, handler: { (_) in
 
       })
