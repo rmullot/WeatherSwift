@@ -95,7 +95,6 @@ public final class WebServiceService: WebServiceServiceProtocol {
       for task in downloadTask {
         task.cancel()
       }
-      NetworkActivityService.sharedInstance.disableActivityIndicator()
     }
   }
 
@@ -103,10 +102,8 @@ public final class WebServiceService: WebServiceServiceProtocol {
     guard let url = URL(string: urlString) else {
       return completion(.error("Invalid URL, we can't update your feed")) }
 
-    NetworkActivityService.sharedInstance.newRequestStarted()
     URLSession.shared.dataTask(with: url) { (data, _, error) in
       DispatchQueue.main.async {
-        NetworkActivityService.sharedInstance.requestFinished()
         guard error == nil else {
           return completion(.error(error!.localizedDescription)) }
         guard let data = data else { return completion(.error(error?.localizedDescription ?? "There are no new Items to show")) }

@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import WeatherCore
 import WeatherUI
+import FTLinearActivityIndicator
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     navigationController = UINavigationController(rootViewController: searchViewController)
     window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
+    UIApplication.configureLinearNetworkActivityIndicatorIfNeeded()
     configServices()
     return true
   }
