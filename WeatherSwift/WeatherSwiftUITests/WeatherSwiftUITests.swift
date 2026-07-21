@@ -22,13 +22,18 @@ class SignInViewModelUITests: XCTestCase {
       app = XCUIApplication()
       // In UI tests it’s important to set the initial state - such as interface orientation
       // - required for your tests before they run. The setUp method is a good place to do this.
+      app.launchArguments += ["-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR"]
       app.accessibilityActivate()
       app.launch()
       // In case where the splashscreen is a problem
       sleep(1)
 
       addUIInterruptionMonitor(withDescription: "Authorisez-vous que cette application utilise vos coordonnées GPS?") { (alert) -> Bool in
-        alert.buttons["Autoriser"].tap()
+        let allowButtonLabels = ["Autoriser", "Autoriser une fois", "Autoriser lors de l’utilisation de l’app", "Allow Once", "Allow While Using App"]
+        guard let label = allowButtonLabels.first(where: { alert.buttons[$0].exists }) else {
+          return false
+        }
+        alert.buttons[label].tap()
         return true
       }
       // To fire addUIInterruptionMonitor
