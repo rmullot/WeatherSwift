@@ -46,7 +46,15 @@ public final class WebServiceService: WebServiceServiceProtocol {
         }
         PermissionService.sharedInstance.startLocalisation()
 
-      default:
+      case .denied, .restricted, .disabled:
+        Task { @MainActor in
+          ErrorService.sharedInstance.showErrorMessage(message: L10n.errorLocationDenied)
+        }
+        self.launchForecastRequest(completionHandler: { (result) in
+          completionHandler(result)
+        })
+
+      case .unknown:
         self.launchForecastRequest(completionHandler: { (result) in
           completionHandler(result)
         })
