@@ -19,6 +19,8 @@ public enum L10n {
   public static let clouds = L10n.tr("Localizable", "Clouds", fallback: "clouds")
   /// It's cold!
   public static let coldWeather = L10n.tr("Localizable", "ColdWeather", fallback: "It's cold!")
+  /// Location access is disabled. Showing weather for Paris by default. You can enable location access in Settings.
+  public static let errorLocationDenied = L10n.tr("Localizable", "errorLocationDenied", fallback: "Location access is disabled. Showing weather for Paris by default. You can enable location access in Settings.")
   /// Error
   public static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// Unavailable or lost Network.

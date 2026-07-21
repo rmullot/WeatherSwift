@@ -14,6 +14,8 @@
 
 "errorUnavailableNetwork" = "Réseau indisponible ou perdu.";
 
+"errorLocationDenied" = "L'accès à la localisation est désactivé. Affichage de la météo de Paris par défaut. Vous pouvez activer la localisation dans Réglages.";
+
 "networkAvailableMessage" = "Réseau disponible";
 
 "noTitle" = "Non";
