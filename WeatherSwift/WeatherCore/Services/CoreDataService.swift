@@ -38,7 +38,9 @@ public final class CoreDataService: Any {
      application to it. This property is optional since there are legitimate
      error conditions that could cause the creation of the store to fail.
      */
-    let container = NSPersistentContainer(name: "WeatherSwift")
+    let modelURL = Bundle(for: CoreDataService.self).url(forResource: "WeatherSwift", withExtension: "momd")!
+    let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL)!
+    let container = NSPersistentContainer(name: "WeatherSwift", managedObjectModel: managedObjectModel)
     container.loadPersistentStores(completionHandler: { (_, error) in
       if let error = error as NSError? {
         // Replace this implementation with code to handle the error appropriately.
