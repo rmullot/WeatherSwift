@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import WeatherCore
 import XCTest
 @testable import WeatherSwift
 
@@ -21,8 +22,10 @@ class MockEnvironmentTest: XCTestCase {
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = Bundle.main.url(forResource: "WeatherSwift", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOf: modelURL)!
+        guard let modelURL = Bundle(for: CoreDataService.self).url(forResource: "WeatherSwift", withExtension: "momd"), let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("not found model WeatherSwift.momd")
+        }
+        return managedObjectModel
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
