@@ -19,7 +19,7 @@ class ForecastViewModelTest: MockEnvironmentTest {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let forecast = Forecast(context: managedObjectContext)
         forecast.temperature = 300
-        forecast.date = NSDate().timeIntervalSince1970
+        forecast.date = Date().timeIntervalSince1970
         viewModelValid = ForecastViewModel(forecast: forecast)
 
         let forecastInvalid = Forecast(context: managedObjectContext)
@@ -36,7 +36,13 @@ class ForecastViewModelTest: MockEnvironmentTest {
         XCTAssertTrue(viewModelValid.date.contains("Aujourd'hui à "))
     }
     func test_date_Valid_AnotherDay() {
-        XCTAssertEqual("lundi 12 janvier 1970 à 23:11", viewModelInvalid.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE' 'dd' 'MMMM' 'yyyy' à 'HH':'mm"
+        formatter.timeZone = TimeZone.autoupdatingCurrent
+        formatter.locale = Locale(identifier: "fr_FR")
+        let expected = formatter.string(from: Date(timeIntervalSince1970: 1030300))
+
+        XCTAssertEqual(expected, viewModelInvalid.date)
     }
 
     func test_weatherDescription_Valid() {
