@@ -24,7 +24,7 @@ extension Fetchable where FetchableType == Self {
   }
 
   public static func objectCountInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil) -> Int {
-    let request = fetchRequest(context, predicate: predicate)
+    let request = fetchRequest(predicate: predicate)
 
     do {
       let count = try context.count(for: request)
@@ -36,38 +36,25 @@ extension Fetchable where FetchableType == Self {
   }
 
   public static func objectsInContext(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil) throws -> [FetchableType] {
-    let request = fetchRequest(context, predicate: predicate, sortedBy: sortedBy)
-    let fetchResults = try context.fetch(request)
-
-    return fetchResults as! [FetchableType]
+    let request = fetchRequest(predicate: predicate, sortedBy: sortedBy)
+    return try context.fetch(request)
   }
 
-  public static func fetchedResultsController(_ context: NSManagedObjectContext, request: NSFetchRequest<NSFetchRequestResult>, sectionName: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<NSFetchRequestResult> {
-    return  NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: cacheName)
+  public static func fetchedResultsController(_ context: NSManagedObjectContext, request: NSFetchRequest<FetchableType>, sectionName: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<FetchableType> {
+    return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: cacheName)
   }
 
-  public static func fetchedResultsController(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil, sectionName: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<NSFetchRequestResult> {
-    let request = fetchRequest(context, predicate: predicate, sortedBy: sortedBy)
-    return  NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: cacheName)
+  public static func fetchedResultsController(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil, sectionName: String? = nil, cacheName: String? = nil) -> NSFetchedResultsController<FetchableType> {
+    let request = fetchRequest(predicate: predicate, sortedBy: sortedBy)
+    return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionName, cacheName: cacheName)
   }
 
-  public static func fetchRequest(_ context: NSManagedObjectContext, predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil) -> NSFetchRequest<NSFetchRequestResult> {
-    let request = NSFetchRequest<NSFetchRequestResult>()
-    let entity = NSEntityDescription.entity(forEntityName: entityName, in: context)
-    request.entity = entity
+  public static func fetchRequest(predicate: NSPredicate? = nil, sortedBy: [String: Bool]? = nil) -> NSFetchRequest<FetchableType> {
+    let request = NSFetchRequest<FetchableType>(entityName: entityName)
+    request.predicate = predicate
 
-    if predicate != nil {
-      request.predicate = predicate
-    }
-
-    if sortedBy != nil {
-      var sortDescriptors = [NSSortDescriptor]()
-      for (key, value) in sortedBy! {
-        let sort = NSSortDescriptor(key: key, ascending: value)
-        sortDescriptors.append(sort)
-      }
-
-      request.sortDescriptors = sortDescriptors
+    if let sortedBy {
+      request.sortDescriptors = sortedBy.map { NSSortDescriptor(key: $0.key, ascending: $0.value) }
     }
 
     return request
