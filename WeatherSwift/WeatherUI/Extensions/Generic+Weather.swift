@@ -23,7 +23,10 @@ extension UITableView {
   }
 
   public func dequeueReusableCell<T: UITableViewCell>(_: T.Type, indexPath: IndexPath) -> T {
-    return self.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as! T
+    guard let cell = self.dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as? T else {
+      fatalError("Cell of type \(T.self) is not registered")
+    }
+    return cell
   }
 
   public func registerReusableView<T: UITableViewHeaderFooterView>(_: T.Type) {
@@ -31,7 +34,10 @@ extension UITableView {
   }
 
   public func dequeueReusableView<T: UITableViewHeaderFooterView>(_: T.Type) -> T {
-    return self.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as! T
+    guard let view = self.dequeueReusableHeaderFooterView(withIdentifier: String(describing: T.self)) as? T else {
+      fatalError("View of type \(T.self) is not registered")
+    }
+    return view
   }
 }
 
@@ -50,14 +56,23 @@ extension UICollectionView {
   }
 
   public func dequeueReusableCell<T: UICollectionViewCell>(_: T.Type, indexPath: IndexPath) -> T {
-    return self.dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+    guard let cell = self.dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as? T else {
+      fatalError("Cell of type \(T.self) is not registered")
+    }
+    return cell
   }
 
   public func dequeueReusableHeader<T: UICollectionReusableView>(_: T.Type, indexPath: IndexPath) -> T {
-    return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+    guard let view = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: T.self), for: indexPath) as? T else {
+      fatalError("Header of type \(T.self) is not registered")
+    }
+    return view
   }
 
   public func dequeueReusableFooter<T: UICollectionReusableView>(_: T.Type, indexPath: IndexPath) -> T {
-    return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+    guard let view = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: T.self), for: indexPath) as? T else {
+      fatalError("Footer of type \(T.self) is not registered")
+    }
+    return view
   }
 }

@@ -40,7 +40,10 @@ public final class CentralService: CentralServiceProtocol {
         registration.instance = instance
         return instance
       }
-      return registration.instance as! T
+      guard let typedInstance = registration.instance as? T else {
+        fatalError("\(F.self) registration instance is not of expected type \(T.self)")
+      }
+      return typedInstance
 
     } else {
       fatalError("\(F.self) is not registered in the IoC container")

@@ -127,8 +127,8 @@ public final class ReachabilityService {
 
     func changeOnlineMode(_ onlineMode: OnlineMode) {
 
-        if let closure = changeOperatinModeClosure {
-            closure!()
+        if let closure = changeOperatinModeClosure, let unwrappedClosure = closure {
+            unwrappedClosure()
         }
 
         if onlineMode == .online || onlineMode == .onlineSlow {
