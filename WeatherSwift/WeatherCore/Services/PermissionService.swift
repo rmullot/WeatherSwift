@@ -47,21 +47,27 @@ public class PermissionService: NSObject, PermissionServiceProtocol {
     private func getPermissionStatus(_ completionHandler: PermissionCompletionHandler? = nil) {
       let permissionQueue = DispatchQueue(label: "permissionStatusQueue")
       permissionQueue.async {
+        let status: LocationStatus
         if CLLocationManager.locationServicesEnabled() {
             let manager = CLLocationManager()
-            let status = manager.authorizationStatus
-            switch status {
+            switch manager.authorizationStatus {
             case .authorizedAlways, .authorizedWhenInUse:
-                completionHandler?(.granted)
+                status = .granted
             case .denied:
-                completionHandler?(.denied)
+                status = .denied
             case .restricted:
-                completionHandler?(.restricted)
+                status = .restricted
             default:
-                completionHandler?(.unknown)
+                status = .unknown
             }
         } else {
-            completionHandler?(.disabled)
+            status = .disabled
+        }
+
+        // CLLocationManager calls (requestWhenInUseAuthorization, startUpdatingLocation) must
+        // happen on a thread with an active run loop, so hand the result back to the main thread.
+        DispatchQueue.main.async {
+          completionHandler?(status)
         }
       }
 
