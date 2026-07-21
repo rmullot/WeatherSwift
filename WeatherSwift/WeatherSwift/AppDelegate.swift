@@ -29,6 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     CentralService.sharedInstance.register { NavigationService.sharedInstance as NavigationServiceProtocol }
     CentralService.sharedInstance.register { WebServiceService.sharedInstance as WebServiceServiceProtocol }
     CentralService.sharedInstance.register { ErrorService.sharedInstance as ErrorServiceProtocol }
+
+    if UITestLaunchArgument.isEnabled {
+      WebServiceService.sharedInstance.onlineMode = .offline
+      CoreDataService.sharedInstance.seedMockForecastForUITesting()
+    }
   }
 
   func applicationWillResignActive(_ application: UIApplication) {

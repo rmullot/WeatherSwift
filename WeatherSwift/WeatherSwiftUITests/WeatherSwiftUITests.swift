@@ -22,7 +22,7 @@ class SignInViewModelUITests: XCTestCase {
       app = XCUIApplication()
       // In UI tests it’s important to set the initial state - such as interface orientation
       // - required for your tests before they run. The setUp method is a good place to do this.
-      app.launchArguments += ["-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR"]
+      app.launchArguments += ["-AppleLanguages", "(fr)", "-AppleLocale", "fr_FR", "UI-Testing"]
       app.accessibilityActivate()
       app.launch()
       // In case where the splashscreen is a problem

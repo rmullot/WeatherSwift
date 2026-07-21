@@ -137,6 +137,22 @@ public final class CoreDataService: Any {
         completionHandler?(CoreDataResult.success(resultObject))
     }
 
+    public func seedMockForecastForUITesting() {
+        let forecast = Forecast(context: persistentContainer.viewContext)
+        forecast.date = Date().timeIntervalSince1970
+        forecast.temperature = 18
+        forecast.pressure = 1013
+        forecast.humidity = 60
+        forecast.speed = 5
+        forecast.rain = 0
+        forecast.snow = 0
+        forecast.clouds = 20
+        forecast.winds = 180
+        forecast.informations = "clear sky"
+        forecast.idImage = "01d"
+        saveContext()
+    }
+
     public func clearData() {
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Forecast.self))
