@@ -16,11 +16,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
-    window = UIWindow(windowScene: windowScene)
+    let newWindow = UIWindow(windowScene: windowScene)
     let searchViewController = WeatherCollectionViewController.initFromNib()
     navigationController = UINavigationController(rootViewController: searchViewController)
-    window!.rootViewController = navigationController
-    window!.makeKeyAndVisible()
+    newWindow.rootViewController = navigationController
+    newWindow.makeKeyAndVisible()
+    window = newWindow
     UIApplication.configureLinearNetworkActivityIndicatorIfNeeded()
   }
 

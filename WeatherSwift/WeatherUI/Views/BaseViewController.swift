@@ -114,7 +114,7 @@ open class BaseViewController<T: BaseViewModel>: UIViewController {
   // MARK: - Private Methods
 
   private func getKeyboardSize(_ notification: Notification) -> CGSize {
-    guard let value = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return .zero }
+    guard let value = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return .zero }
     return value.cgRectValue.size
   }
 

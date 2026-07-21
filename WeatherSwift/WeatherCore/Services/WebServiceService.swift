@@ -112,8 +112,8 @@ public final class WebServiceService: WebServiceServiceProtocol {
 
     URLSession.shared.dataTask(with: url) { (data, _, error) in
       DispatchQueue.main.async {
-        guard error == nil else {
-          return completion(.error(error!.localizedDescription)) }
+        if let error {
+          return completion(.error(error.localizedDescription)) }
         guard let data = data else { return completion(.error(error?.localizedDescription ?? "There are no new Items to show")) }
         return completion(.success(data))
       }

@@ -26,11 +26,11 @@ public protocol CoreDataServiceProtocol {
 }
 
 public final class CoreDataService: Any {
-    
+
     public static let sharedInstance = CoreDataService()
-    
+
     // MARK: - Core Data stack
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
@@ -59,9 +59,9 @@ public final class CoreDataService: Any {
         })
         return container
     }()
-    
+
     // MARK: - Core Data Saving support
-    
+
     public func saveContext() {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -74,11 +74,11 @@ public final class CoreDataService: Any {
                 Task { @MainActor in
                     ErrorService.sharedInstance.showErrorMessage(message: "Unresolved error \(nserror), \(nserror.userInfo)")
                 }
-                
+
             }
         }
     }
-    
+
     public func saveForecastsData(_ forecastStructs: [ForecastStruct]) {
         var errorMessage = ""
         forecastStructs.forEach {
@@ -91,7 +91,7 @@ public final class CoreDataService: Any {
                 }
             })
         }
-        
+
         if errorMessage.isEmpty {
             self.saveContext()
         } else {
@@ -100,15 +100,15 @@ public final class CoreDataService: Any {
             }
         }
     }
-    
+
     private func convertForecast(_ forecast: ForecastStruct, completionHandler: CoreDataCallback? = nil) {
         var resultObject: Forecast?
-        
+
         // check if object exists already or create new one
-        
+
         let predicate = NSPredicate(format: "date == %lf", forecast.date)
         var objects: [Forecast] = [Forecast]()
-        
+
         do {
             objects = try Forecast.objectsInContext(persistentContainer.viewContext, predicate: predicate, sortedBy: nil)
         } catch let error {
@@ -120,10 +120,10 @@ public final class CoreDataService: Any {
             completionHandler?(CoreDataResult.failure(CoreDataError.forecastMultiplePresent, "already in the coredata cache"))
             return
         }
-        
+
         // check object already in cache
-        resultObject = objects.count == 1 ? objects[0] : NSEntityDescription.insertNewObject(forEntityName: String(describing: Forecast.self), into: persistentContainer.viewContext) as! Forecast
-        
+        resultObject = objects.first ?? Forecast(context: persistentContainer.viewContext)
+
         resultObject?.date = forecast.date
         resultObject?.clouds = forecast.clouds ?? -1
         resultObject?.pressure = forecast.pressure
@@ -136,7 +136,7 @@ public final class CoreDataService: Any {
         resultObject?.humidity = Int16(forecast.humidity ?? -1)
         completionHandler?(CoreDataResult.success(resultObject))
     }
-    
+
     public func clearData() {
         do {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: String(describing: Forecast.self))
@@ -149,7 +149,7 @@ public final class CoreDataService: Any {
             }
         }
     }
-    
+
     private init() {}
-    
+
 }
