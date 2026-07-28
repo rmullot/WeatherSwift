@@ -307,7 +307,7 @@
 				025F7F45300E675A00B45C42 /* .swiftlint.auto.yml */,
 				025F7F44300E674C00B45C42 /* .swiftlint.yml */,
 			);
-			path = SwiftLint;
+			name = SwiftLint;
 			sourceTree = "<group>";
 		};
 		025F7F46300E6A9100B45C42 /* SwiftGen */ = {
@@ -315,7 +315,7 @@
 			children = (
 				025F7F47300E6AAE00B45C42 /* swiftgen.yml */,
 			);
-			path = SwiftGen;
+			name = SwiftGen;
 			sourceTree = "<group>";
 		};
 		025F7F48300E735000B45C42 /* Claude */ = {
@@ -324,7 +324,7 @@
 				025F7F49300E738D00B45C42 /* CLAUDE.md */,
 				5CA4437DF9FD0801CE4AB64C /* settings.local.json */,
 			);
-			path = Claude;
+			name = Claude;
 			sourceTree = "<group>";
 		};
 		14A55299B0827C79475E5796 /* Git */ = {
