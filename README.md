@@ -2,6 +2,8 @@
 
 An iOS weather app that shows the GFS forecast for your current location: temperature, clouds, humidity, atmospheric pressure, rain, and snow risk, listed hour by hour with a detail view for each entry.
 
+As documented in `CLAUDE.md`, the app is built with Swift, UIKit, and Core Data, and is split into three build targets: `WeatherCore` (networking, JSON parsing, Core Data persistence, and domain services, with no view code), `WeatherUI` (reusable UI extensions and view models built on top of WeatherCore), and the `WeatherSwift` app target (an MVVM presentation layer with no storyboard, whose root view controller is installed programmatically from `SceneDelegate`). Dependencies are managed with Swift Package Manager, and forecasts flow through a chain of singleton services — `BridgeForecastService` returns cached Core Data forecasts immediately and refreshes them from the infoclimat.fr API via `WebServiceService`, `ParserService`, and `CoreDataService` when online.
+
 ## For users
 
 - **Location-based forecast** — on launch, the app asks for your location (used once to fetch the forecast, not tracked continuously) and shows the GFS forecast for that spot.

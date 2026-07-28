@@ -165,6 +165,7 @@
 		025F7F47300E6AAE00B45C42 /* swiftgen.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = SOURCE_ROOT; };
 		025F7F49300E738D00B45C42 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = CLAUDE.md; path = ../CLAUDE.md; sourceTree = SOURCE_ROOT; };
 		025F7F4B300E763400B45C42 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = SOURCE_ROOT; };
+		5CA4437DF9FD0801CE4AB64C /* settings.local.json */ = {isa = PBXFileReference; includeInIndex = 1; name = settings.local.json; path = ../../.claude/settings.local.json; sourceTree = "<group>"; };
 		7A0CA58321F771BB001CB2DD /* UITestKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITestKey.swift; sourceTree = "<group>"; };
 		7A0CA58721F7738C001CB2DD /* BridgeForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BridgeForecastService.swift; sourceTree = "<group>"; };
 		7A0CA58E21F7757C001CB2DD /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		7AE3B4D92204A44600E2BF1D /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		7AE3B4DB2204A44600E2BF1D /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		9E1A00002E4A00010000AAAA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E6ECEC2AFDE7CE8B5E699596 /* .gitignore */ = {isa = PBXFileReference; includeInIndex = 1; name = .gitignore; path = ../.gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,8 +322,17 @@
 			isa = PBXGroup;
 			children = (
 				025F7F49300E738D00B45C42 /* CLAUDE.md */,
+				5CA4437DF9FD0801CE4AB64C /* settings.local.json */,
 			);
 			path = Claude;
+			sourceTree = "<group>";
+		};
+		14A55299B0827C79475E5796 /* Git */ = {
+			isa = PBXGroup;
+			children = (
+				E6ECEC2AFDE7CE8B5E699596 /* .gitignore */,
+			);
+			name = Git;
 			sourceTree = "<group>";
 		};
 		7A0CA59721F77954001CB2DD /* Models */ = {
@@ -414,9 +425,10 @@
 			isa = PBXGroup;
 			children = (
 				025F7F4B300E763400B45C42 /* README.md */,
-				025F7F48300E735000B45C42 /* Claude */,
-				025F7F46300E6A9100B45C42 /* SwiftGen */,
 				025F7F43300E673900B45C42 /* SwiftLint */,
+				14A55299B0827C79475E5796 /* Git */,
+				025F7F46300E6A9100B45C42 /* SwiftGen */,
+				025F7F48300E735000B45C42 /* Claude */,
 				7AC9D03F21F721A60073F6EE /* WeatherSwift */,
 				7AC9D05721F721A60073F6EE /* WeatherSwiftTests */,
 				7AC9D06221F721A60073F6EE /* WeatherSwiftUITests */,
