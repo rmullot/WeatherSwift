@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
 
     let newWindow = UIWindow(windowScene: windowScene)
+    newWindow.overrideUserInterfaceStyle = .light
     let searchViewController = WeatherCollectionViewController.initFromNib()
     navigationController = UINavigationController(rootViewController: searchViewController)
     newWindow.rootViewController = navigationController
